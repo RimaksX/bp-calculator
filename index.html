@@ -8,7 +8,6 @@
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;700&family=Onest:wght@400;500;600;700&display=swap" rel="stylesheet"/>
 <style>
-/* ── TOKENS ── */
 :root {
   --bg:        #0e0e0e;
   --card:      #161616;
@@ -52,11 +51,9 @@ input[type=number] { -moz-appearance:textfield }
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button { -webkit-appearance:none }
 
-/* ── LAYOUT ── */
 .page { display:flex; flex-direction:column; min-height:100dvh }
 .scroll { flex:1; overflow-y:auto; padding:10px 10px calc(152px + var(--safe)) }
 
-/* ── HEADER ── */
 .hdr {
   display:flex; align-items:center; justify-content:space-between;
   padding:14px 12px 12px; border-bottom:1px solid var(--line);
@@ -69,8 +66,7 @@ input::-webkit-inner-spin-button { -webkit-appearance:none }
   display:flex; align-items:center; justify-content:center;
   width:32px; height:32px; border-radius:var(--r3);
   border:1px solid var(--line2); background:var(--card);
-  color:var(--t2); font-size:15px; cursor:pointer;
-  transition:all .15s;
+  color:var(--t2); font-size:15px; cursor:pointer; transition:all .15s;
 }
 .btn-icon:active { opacity:.6; transform:scale(.92) }
 .btn-icon.settings-open { background:var(--orange-bg); border-color:var(--orange-br); color:var(--orange) }
@@ -81,7 +77,6 @@ input::-webkit-inner-spin-button { -webkit-appearance:none }
 }
 .btn-reset:active { opacity:.55 }
 
-/* ── BENTO ── */
 .bento { display:grid; grid-template-columns:1fr 1fr; gap:6px; margin-bottom:8px }
 .ben { background:var(--card); border:1px solid var(--line); border-radius:var(--r); padding:11px 12px }
 .ben-full { grid-column:1/-1 }
@@ -120,7 +115,6 @@ input::-webkit-inner-spin-button { -webkit-appearance:none }
 }
 .ben.x2-on .sw-knob { transform:translateX(16px) }
 
-/* ── SECTION ── */
 .sec { margin-bottom:18px }
 .sec-hdr { display:flex; align-items:center; gap:7px; margin-bottom:8px; padding:0 1px }
 .sec-ico  { font-size:13px; flex-shrink:0 }
@@ -129,30 +123,21 @@ input::-webkit-inner-spin-button { -webkit-appearance:none }
 .sec-sum  { font-family:var(--mono); font-size:12px; font-weight:700; color:var(--t3); transition:color .2s; min-width:36px; text-align:right }
 .sec-sum.on { color:var(--green) }
 
-/* ── ACTIVITY LIST ── */
-/* gap:7px — визуально отчётливый зазор между карточками */
 .acts { display:flex; flex-direction:column; gap:6px }
-
-/* Обёртка: строка + панель подсказки */
 .act-wrap { display:flex; flex-direction:column }
-
-/* Главная строка:
-   border-color чуть светлее --line чтобы карточки читались на тёмном фоне */
 .act {
   display:flex; align-items:center; gap:10px;
   background:var(--card); border:1px solid #2f2f2f;
-  border-radius:var(--r2); padding:12px 12px;
+  border-radius:var(--r2); padding:12px;
   cursor:pointer; user-select:none; -webkit-tap-highlight-color:transparent;
   transition:background .12s, border-color .12s, border-radius .15s;
-  min-height:48px; /* минимальная высота для удобного касания */
+  min-height:48px;
 }
 .act:active { transform:scale(.988) }
 .act.chk    { background:var(--green-bg); border-color:var(--green-br) }
 .act.chk-x2 { background:var(--lime-bg);  border-color:var(--lime-br)  }
-/* нижние скругления убираем если подсказка открыта */
 .act.hint-open { border-bottom-left-radius:0; border-bottom-right-radius:0; border-bottom-color:transparent }
 
-/* Чекбокс */
 .chkbox {
   width:20px; height:20px; flex-shrink:0; border:1.5px solid var(--line2); border-radius:6px;
   display:flex; align-items:center; justify-content:center; transition:all .15s;
@@ -166,17 +151,13 @@ input::-webkit-inner-spin-button { -webkit-appearance:none }
 }
 .act.chk .chk-ico, .act.chk-x2 .chk-ico { opacity:1; transform:scale(1) }
 
-/* Название */
 .act-name {
   flex:1; font-size:13.5px; font-weight:500; color:var(--t2);
-  transition:color .12s; min-width:0; line-height:1.4;
-  /* оптическая коррекция: cap-height шрифта Onest ~0.72 */
-  padding-top:1px;
+  transition:color .12s; min-width:0; line-height:1.4; padding-top:1px;
 }
 .act.chk    .act-name { color:var(--green) }
 .act.chk-x2 .act-name { color:var(--lime)  }
 
-/* Очки */
 .act-pts {
   font-family:var(--mono); font-size:14px; font-weight:700; color:var(--t3);
   flex-shrink:0; min-width:26px; text-align:right; transition:color .12s;
@@ -184,48 +165,34 @@ input::-webkit-inner-spin-button { -webkit-appearance:none }
 .act.chk    .act-pts { color:var(--green) }
 .act.chk-x2 .act-pts { color:var(--lime)  }
 
-/* Кнопка подсказки — большой хитбокс, SVG-иконка */
 .hint-btn {
   display:flex; align-items:center; justify-content:center;
-  /* видимый размер 28×28, но реальный хитбокс 44×44 через padding */
   width:28px; height:28px; border-radius:50%; flex-shrink:0;
   background:var(--card2); border:1px solid #3a3a4e;
-  color:#6a6a88; cursor:pointer; transition:all .15s;
-  /* расширяем область касания без изменения лейаута */
-  position:relative;
+  color:#6a6a88; cursor:pointer; transition:all .15s; position:relative;
 }
-.hint-btn::before {
-  content:''; position:absolute; inset:-8px; border-radius:50%;
-}
+.hint-btn::before { content:''; position:absolute; inset:-8px; border-radius:50% }
 .hint-btn svg { display:block; transition:all .15s; pointer-events:none }
 .hint-btn:active { transform:scale(.88) }
 .hint-btn.open { background:var(--blue-bg); border-color:var(--blue-br) }
 .hint-btn.open svg { color:var(--blue) }
 
-/* Панель подсказки */
 .hint-panel {
   background:transparent;
-  border-left:1px solid transparent;
-  border-right:1px solid transparent;
-  border-bottom:1px solid transparent;
+  border-left:1px solid transparent; border-right:1px solid transparent; border-bottom:1px solid transparent;
   border-bottom-left-radius:var(--r2); border-bottom-right-radius:var(--r2);
   overflow:hidden; max-height:0;
-  transition:max-height .25s cubic-bezier(.4,0,.2,1),
-             border-color .25s cubic-bezier(.4,0,.2,1);
+  transition:max-height .25s cubic-bezier(.4,0,.2,1), border-color .25s cubic-bezier(.4,0,.2,1);
 }
 .hint-panel.open {
-  max-height:220px;
-  background:var(--card2);
-  border-left-color:var(--line);
-  border-right-color:var(--line);
-  border-bottom-color:var(--line);
+  max-height:220px; background:var(--card2);
+  border-left-color:var(--line); border-right-color:var(--line); border-bottom-color:var(--line);
 }
 .hint-inner { padding:10px 12px 11px; border-top:1px solid var(--line); display:flex; gap:9px; align-items:flex-start }
 .hint-icon  { font-size:13px; flex-shrink:0; margin-top:1px; opacity:.55 }
 .hint-text  { font-size:12.5px; color:#8a8a9a; line-height:1.6; font-weight:400 }
 .hint-text b { color:var(--t1); font-weight:600 }
 
-/* ── BOTTOM PANEL ── */
 .panel {
   position:fixed; bottom:0; left:0; right:0; z-index:30;
   padding:8px 10px; padding-bottom:calc(8px + var(--safe));
@@ -251,14 +218,12 @@ input::-webkit-inner-spin-button { -webkit-appearance:none }
 .tot-val  { font-family:var(--mono); font-size:28px; font-weight:700; color:var(--lime); line-height:1; text-shadow:0 0 18px rgba(212,245,60,.3) }
 .tot-unit { font-family:var(--mono); font-size:11px; color:var(--t3); margin-left:3px }
 
-/* ── SETTINGS PANEL ── */
 .settings-overlay {
   position:fixed; inset:0; z-index:50;
   background:rgba(0,0,0,.6); backdrop-filter:blur(6px);
   opacity:0; pointer-events:none; transition:opacity .2s;
 }
 .settings-overlay.vis { opacity:1; pointer-events:all }
-
 .settings-sheet {
   position:absolute; top:0; right:0; bottom:0; width:min(340px, 100vw);
   background:var(--bg); border-left:1px solid var(--line);
@@ -266,7 +231,6 @@ input::-webkit-inner-spin-button { -webkit-appearance:none }
   transform:translateX(100%); transition:transform .28s cubic-bezier(.32,.72,0,1);
 }
 .settings-overlay.vis .settings-sheet { transform:translateX(0) }
-
 .settings-hdr {
   display:flex; align-items:center; justify-content:space-between;
   padding:16px 14px 12px; border-bottom:1px solid var(--line); flex-shrink:0;
@@ -275,24 +239,17 @@ input::-webkit-inner-spin-button { -webkit-appearance:none }
 .btn-close {
   display:flex; align-items:center; justify-content:center;
   width:28px; height:28px; border-radius:var(--r3); border:1px solid var(--line2);
-  background:var(--card); color:var(--t2); font-size:14px; cursor:pointer;
-  transition:all .15s;
+  background:var(--card); color:var(--t2); font-size:14px; cursor:pointer; transition:all .15s;
 }
 .btn-close:active { opacity:.6 }
-
 .settings-scroll { flex:1; overflow-y:auto; padding:10px 14px calc(12px + var(--safe)) }
 .settings-desc {
   font-size:12.5px; color:#8a8a9a; line-height:1.6; margin-bottom:14px;
-  padding:11px 13px; background:var(--card); border:1px solid #2f2f2f;
-  border-radius:var(--r2);
+  padding:11px 13px; background:var(--card); border:1px solid #2f2f2f; border-radius:var(--r2);
 }
 
-/* Секция в настройках */
 .stg-sec { margin-bottom:16px }
-.stg-sec-hdr {
-  display:flex; align-items:center; justify-content:space-between;
-  margin-bottom:6px;
-}
+.stg-sec-hdr { display:flex; align-items:center; justify-content:space-between; margin-bottom:6px }
 .stg-sec-name { font-size:11px; font-weight:700; color:#6e6e82; text-transform:uppercase; letter-spacing:.8px }
 .stg-bulk { display:flex; gap:4px }
 .stg-bulk-btn {
@@ -303,18 +260,18 @@ input::-webkit-inner-spin-button { -webkit-appearance:none }
 .stg-bulk-btn:hover { color:var(--t2); border-color:var(--line2) }
 .stg-bulk-btn:active { transform:scale(.93) }
 
-/* Строка задания в настройках */
 .stg-row {
   display:flex; align-items:center; gap:12px;
   padding:11px 12px; background:var(--card); border:1px solid #2f2f2f;
-  border-radius:var(--r2); margin-bottom:4px;
-  transition:opacity .15s; min-height:44px;
+  border-radius:var(--r2); margin-bottom:4px; min-height:44px;
+  transition:opacity .15s, transform .22s cubic-bezier(.34,.9,.46,1);
+  will-change:transform;
 }
 .stg-row.hidden-row { opacity:.45 }
+.stg-row.dnd-ghost  { visibility:hidden }
 .stg-row-name { flex:1; font-size:13px; font-weight:500; color:var(--t2); min-width:0; line-height:1.35 }
 .stg-row-pts  { font-family:var(--mono); font-size:12px; color:#555565; flex-shrink:0; margin-right:4px }
 
-/* Toggle переключатель в строке настроек */
 .stg-sw { width:36px; height:20px; background:var(--line2); border-radius:10px; position:relative; flex-shrink:0; cursor:pointer; transition:background .2s }
 .stg-sw.on { background:var(--green) }
 .stg-sw-k {
@@ -323,8 +280,7 @@ input::-webkit-inner-spin-button { -webkit-appearance:none }
 }
 .stg-sw.on .stg-sw-k { transform:translateX(16px) }
 
-/* Сброс настроек */
-.settings-footer { padding:10px 14px calc(10px + var(--safe)); border-top:1px solid var(--line); flex-shrink:0 }
+.settings-footer { padding:10px 14px calc(10px + var(--safe)); border-top:1px solid var(--line); flex-shrink:0; display:flex; flex-direction:column; gap:8px }
 .btn-reset-settings {
   width:100%; padding:11px; border-radius:var(--r2);
   border:1px solid var(--orange-br); background:var(--orange-bg);
@@ -333,7 +289,46 @@ input::-webkit-inner-spin-button { -webkit-appearance:none }
 }
 .btn-reset-settings:active { opacity:.6 }
 
-/* ── GENERAL MODAL ── */
+.stg-drag {
+  display:flex; align-items:center; justify-content:center;
+  width:32px; height:32px; flex-shrink:0;
+  cursor:grab; touch-action:none;
+  border-radius:var(--r3); color:#4a4a62;
+  transition:color .15s; position:relative;
+}
+.stg-drag::before { content:''; position:absolute; inset:-8px }
+.stg-drag:active  { cursor:grabbing; color:#7a7a9a }
+.stg-drag svg     { pointer-events:none; display:block }
+
+.stg-clone {
+  position:fixed; z-index:999; pointer-events:none;
+  left:0; top:0; display:flex; align-items:center; gap:12px;
+  padding:11px 12px; min-height:44px; border-radius:var(--r2);
+  background:#1c1c2e; border:1.5px solid rgba(91,156,246,.4);
+  box-shadow:0 20px 60px rgba(0,0,0,.8), 0 0 0 1px rgba(91,156,246,.1);
+  will-change:transform; box-sizing:border-box; overflow:hidden;
+}
+.stg-clone-handle {
+  display:flex; align-items:center; justify-content:center;
+  width:32px; height:32px; flex-shrink:0; color:#6a6a9a;
+}
+.stg-clone-name {
+  flex:1; font-family:'Onest',sans-serif; font-size:13px; font-weight:500;
+  color:#8a8a9a; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; min-width:0;
+}
+.stg-clone-pts { font-family:'JetBrains Mono',monospace; font-size:12px; color:#555565; flex-shrink:0; margin-right:4px }
+.stg-clone-sw {
+  width:36px; height:20px; border-radius:10px; flex-shrink:0;
+  background:var(--line2); opacity:.75; position:relative;
+}
+.stg-clone-sw::after {
+  content:''; position:absolute; top:3px; left:3px;
+  width:14px; height:14px; border-radius:50%;
+  background:#fff; box-shadow:0 1px 3px rgba(0,0,0,.4);
+}
+.stg-clone-sw.on { background:var(--green) }
+.stg-clone-sw.on::after { transform:translateX(16px) }
+
 .overlay {
   position:fixed; inset:0; z-index:100; background:rgba(0,0,0,.7); backdrop-filter:blur(8px);
   display:flex; align-items:flex-end; opacity:0; pointer-events:none; transition:opacity .2s;
@@ -350,41 +345,34 @@ input::-webkit-inner-spin-button { -webkit-appearance:none }
 .sh-title  { font-size:16px; font-weight:700; margin-bottom:4px }
 .sh-desc   { font-size:12px; color:var(--t2); margin-bottom:18px; line-height:1.6 }
 .sh-btns   { display:flex; gap:8px }
-.sh-btn {
-  flex:1; padding:13px; border-radius:var(--r2); border:1px solid var(--line2);
-  font-family:var(--body); font-size:13px; font-weight:700; cursor:pointer; transition:opacity .15s;
-}
+.sh-btn    { flex:1; padding:13px; border-radius:var(--r2); border:1px solid var(--line2); font-family:var(--body); font-size:13px; font-weight:700; cursor:pointer; transition:opacity .15s }
 .sh-btn:active { opacity:.6 }
 .sh-cancel { background:var(--card2); color:var(--t2) }
 .sh-ok     { background:var(--red-bg); color:var(--red); border-color:var(--red-br) }
 
-/* ── PULSE ── */
-@keyframes pg { 0%{box-shadow:0 0 0 0 rgba(62,207,142,.4)} 70%{box-shadow:0 0 0 6px rgba(62,207,142,0)} 100%{box-shadow:0 0 0 0 rgba(62,207,142,0)} }
-@keyframes pl { 0%{box-shadow:0 0 0 0 rgba(212,245,60,.4)}  70%{box-shadow:0 0 0 6px rgba(212,245,60,0)}  100%{box-shadow:0 0 0 0 rgba(212,245,60,0)}  }
+@keyframes pg   { 0%{box-shadow:0 0 0 0 rgba(62,207,142,.4)}  70%{box-shadow:0 0 0 6px rgba(62,207,142,0)}  100%{box-shadow:0 0 0 0 rgba(62,207,142,0)}  }
+@keyframes pl   { 0%{box-shadow:0 0 0 0 rgba(212,245,60,.4)}   70%{box-shadow:0 0 0 6px rgba(212,245,60,0)}   100%{box-shadow:0 0 0 0 rgba(212,245,60,0)}   }
+@keyframes spin { to { transform:rotate(360deg) } }
 .pulse-g { animation:pg .35s ease }
 .pulse-l { animation:pl .35s ease }
-@keyframes spin { to { transform:rotate(360deg) } }
 </style>
 </head>
 <body>
 <div class="page">
 
-<!-- HEADER -->
 <header class="hdr">
   <div class="hdr-logo">BP<em>//</em>calc</div>
   <div class="hdr-right">
-    <button class="btn-icon" id="btnSettings" title="Настройки">⚙</button>
+    <button class="btn-icon" id="btnSettings">⚙</button>
     <button class="btn-reset" id="btnReset">↺ Сброс</button>
   </div>
 </header>
 
-<!-- LOADER -->
 <div id="loader" style="display:none;position:fixed;inset:0;z-index:40;background:var(--bg);align-items:center;justify-content:center;flex-direction:column;gap:12px">
   <div style="width:28px;height:28px;border:2.5px solid var(--line2);border-top-color:var(--lime);border-radius:50%;animation:spin .7s linear infinite"></div>
   <span style="font-family:var(--mono);font-size:12px;color:#555565;letter-spacing:.5px">загрузка...</span>
 </div>
 
-<!-- MAIN SCROLL -->
 <div class="scroll">
   <div class="bento">
     <div class="ben ben-full">
@@ -412,7 +400,6 @@ input::-webkit-inner-spin-button { -webkit-appearance:none }
   <div id="root"></div>
 </div>
 
-<!-- BOTTOM PANEL -->
 <div class="panel">
   <div class="panel-card">
     <div class="pbar"><div class="pfill" id="pfill"></div></div>
@@ -429,7 +416,6 @@ input::-webkit-inner-spin-button { -webkit-appearance:none }
 </div>
 </div>
 
-<!-- SETTINGS PANEL -->
 <div class="settings-overlay" id="settingsOverlay">
   <div class="settings-sheet">
     <div class="settings-hdr">
@@ -438,17 +424,17 @@ input::-webkit-inner-spin-button { -webkit-appearance:none }
     </div>
     <div class="settings-scroll">
       <div class="settings-desc">
-        Скройте задания, которые вам не нужны. Скрытые задания не учитываются в расчёте BP.
+        Скройте ненужные задания — они не учитываются в расчёте BP.<br>Зажми <b style="color:#5b9cf6">⠿</b> чтобы изменить порядок.
       </div>
       <div id="settingsRoot"></div>
     </div>
     <div class="settings-footer">
       <button class="btn-reset-settings" id="btnShowAll">Показать все задания</button>
+      <button class="btn-reset-settings" id="btnResetOrder" style="border-color:rgba(91,156,246,.25);background:rgba(91,156,246,.08);color:#5b9cf6">Сбросить порядок заданий</button>
     </div>
   </div>
 </div>
 
-<!-- RESET MODAL -->
 <div class="overlay" id="modal">
   <div class="sheet">
     <div class="sh-handle"></div>
@@ -462,18 +448,12 @@ input::-webkit-inner-spin-button { -webkit-appearance:none }
 </div>
 
 <script>
-/* ════ TELEGRAM ════ */
 const tg = window.Telegram?.WebApp;
 if (tg) { tg.ready(); tg.expand(); }
-const haptic = ()  => tg?.HapticFeedback?.impactOccurred('light');
-const hNote  = ()  => tg?.HapticFeedback?.notificationOccurred('warning');
-const hSel   = ()  => tg?.HapticFeedback?.selectionChanged();
+const haptic = () => tg?.HapticFeedback?.impactOccurred('light');
+const hNote  = () => tg?.HapticFeedback?.notificationOccurred('warning');
+const hSel   = () => tg?.HapticFeedback?.selectionChanged();
 
-/* ════════════════════════════════════════════════════════════
-   CONFIG
-   Источник описаний: gta5rp.info/wiki/bonus-pointy/
-   base = BP без VIP | vip = BP с VIP | VIP+x2 = vip×2
-   ════════════════════════════════════════════════════════════ */
 const CATS = [
   {
     id:'gen', name:'Общие активности', icon:'⚡',
@@ -481,7 +461,7 @@ const CATS = [
       {
         id:'g01',
         name:'3 часа онлайна',
-        hint:'Проведите суммарно <b>3 часа</b> в игре за день - часы можно набирать частями, стоять AFK не считается. Выполняется неограниченное количество раз в день.',
+        hint:'Проведите суммарно <b>3 часа</b> в игре за день — часы можно набирать частями, стоять AFK не считается. Выполняется неограниченное количество раз в день.',
         base:2, vip:4
       },
       {
@@ -499,13 +479,13 @@ const CATS = [
       {
         id:'g04',
         name:'25 действий в порту',
-        hint:'Устройтесь на работу <b>грузчиком в порту</b>. Выполните 25 действий по разгрузке контейнеров. Точка найма находится в порту Лос-Сантоса.',
+        hint:'Устройтесь на работу <b>докером в порту</b>. Выполните 25 действий по разгрузке контейнеров. Точка найма находится в порту Лос-Сантоса.',
         base:2, vip:4
       },
       {
         id:'g05',
         name:'25 действий в шахте',
-        hint:'Устройтесь на работу <b>шахтёром</b> и выполните 25 рабочих действий. Точка найма — шахта в Блэйн-Каунти.',
+        hint:'Устройтесь на работу <b>шахтёром</b> и выполните 25 рабочих действий под землёй. Точка найма — шахта в Блэйн-Каунти.',
         base:2, vip:4
       },
       {
@@ -535,7 +515,7 @@ const CATS = [
       {
         id:'g10',
         name:'Доставить 10 посылок на почте',
-        hint:'Подойдите к NPC на <b>почте</b> и доставьте 10 посылок по адресам. Маршруты генерируются случайно по городу.',
+        hint:'Устройтесь на работу <b>почтальоном</b> и доставьте 10 посылок по адресам. Маршруты генерируются случайно по городу.',
         base:1, vip:2
       },
       {
@@ -559,7 +539,7 @@ const CATS = [
       {
         id:'g14',
         name:'10 действий на ферме',
-        hint:'Устройтесь на работу на <b>ферме</b> и выполните 10 действий. Можно использовать один вид работ повторно: подоить корову, собрать апельсины, полить поле — всё засчитывается.',
+        hint:'Устройтесь на работу на <b>ферме</b> и выполните 10 действий. Можно использовать один вид работ повторно: подоить корову, собрать яйца, полить поле — всё засчитывается.',
         base:1, vip:2
       },
       {
@@ -571,7 +551,7 @@ const CATS = [
       {
         id:'g16',
         name:'Выкопать 1 сокровище',
-        hint:'Возьмите <b>металлоискатель с лопатой</b> и исследуйте карту. Нужно выкопать именно <b>сокровище</b> — обычный мусор не засчитывается.',
+        hint:'Возьмите <b>лопату</b> и исследуйте карту. Нужно выкопать именно <b>сокровище</b> — обычный мусор (бутылки, консервы и т.д.) не засчитывается.',
         base:1, vip:2
       },
       {
@@ -582,14 +562,14 @@ const CATS = [
       },
       {
         id:'g18',
-        name:'3 рейса дальнобойщиком',
-        hint:'Устройтесь на работу <b>дальнобойщиком</b> и выполните 3 рейса — доставьте груз в порт из любой точки. <b>Клубные заказы не засчитываются</b>, только обычная работа.',
+        name:'15 рейсов дальнобойщиком',
+        hint:'Устройтесь на работу <b>дальнобойщиком</b> и выполните 15 рейсов — доставьте груз в порт из любой точки. <b>Клубные заказы не засчитываются</b>, только обычная работа.',
         base:2, vip:4
       },
       {
         id:'g19',
-        name:'Смена внешности у хирурга EMS',
-        hint:'Найдите <b>NPC Хирурга в городской больнице EMS</b> и оплатите смену внешности. Процедура платная. Только NPC-хирург в EMS — другие места не засчитываются.',
+        name:'2× смена внешности у хирурга EMS',
+        hint:'Найдите <b>NPC Хирурга в городской больнице EMS</b> и оплатите смену внешности <b>два раза</b>. Каждая процедура платная. Только NPC-хирург в EMS — другие места не засчитываются.',
         base:2, vip:4
       },
       {
@@ -649,13 +629,13 @@ const CATS = [
       {
         id:'g29',
         name:'Кинуть мяч питомцу 15 раз',
-        hint:'Возьмите <b>питомца</b> и бросьте мяч 15 раз. Питомца можно взять в зоомагазине.',
+        hint:'Возьмите <b>питомца (собаку)</b> и используйте команду апорт / бросьте мяч 15 раз. Питомца можно взять в зоомагазине.',
         base:2, vip:4
       },
       {
         id:'g30',
         name:'15 команд для питомца',
-        hint:'Дайте питомцу 15 любых <b>команд</b> через меню взаимодействия: сидеть, лежать, и т.д. Команды можно повторять.',
+        hint:'Дайте питомцу 15 любых <b>команд</b> через меню взаимодействия: сидеть, лежать, голос и т.д. Команды можно повторять.',
         base:2, vip:4
       },
       {
@@ -667,7 +647,7 @@ const CATS = [
       {
         id:'g32',
         name:'Проехать 1 станцию на метро',
-        hint:'Найдите вход на станцию <b>метро</b> и проедьте хотя бы одну остановку. Станции метро расположены в разных районах Лос-Сантоса.',
+        hint:'Найдите вход на станцию <b>метро</b>, купите билет и проедьте хотя бы одну остановку. Станции метро расположены в разных районах Лос-Сантоса.',
         base:2, vip:4
       },
       {
@@ -685,7 +665,7 @@ const CATS = [
       {
         id:'g35',
         name:'Починить деталь в автосервисе',
-        hint:'Приедьте в <b>автосервис</b> и выполните ремонт детали на автомобиле. Одна починка = выполнено.',
+        hint:'Устройтесь на работу в <b>автосервис</b> и выполните ремонт детали на автомобиле клиента. Одна починка = выполнено.',
         base:1, vip:2
       },
       {
@@ -697,7 +677,7 @@ const CATS = [
       {
         id:'g37',
         name:'Забить 2 гола в футбол',
-        hint:'Найдите <b>футбольное поле</b> и забейте 2 гола.',
+        hint:'Найдите <b>футбольное поле</b> и забейте 2 гола. Нужен хотя бы один другой участник.',
         base:1, vip:2
       },
       {
@@ -757,7 +737,7 @@ const CATS = [
       {
         id:'g47',
         name:'Участие в 2 аирдропах',
-        hint:'Примите участие в <b>2 аирдропах</b> — серверных событиях, при которых с неба сбрасывается груз. Следите за картой. Нужно находиться в зоне аирдропа.',
+        hint:'Примите участие в <b>2 аирдропах</b> — серверных событиях, при которых с неба сбрасывается груз. Следите за серверными объявлениями. Нужно находиться в зоне аирдропа.',
         base:4, vip:8
       },
       {
@@ -792,7 +772,7 @@ const CATS = [
       {
         id:'f04',
         name:'Привезти Хаммер с ВЗХ на титул',
-        hint:'Состоя в банде или мафии, угоните <b>Хаммер</b> и доставьте его на точку сдачи (титул).',
+        hint:'Состоя в банде или мафии, угоните <b>Хаммер с военно-захваченной зоны (ВЗХ)</b> и доставьте его на точку сдачи (титул). Требует координации группы.',
         base:3, vip:6
       },
       {
@@ -828,19 +808,19 @@ const CATS = [
       {
         id:'f10',
         name:'Поставить 2 авто на учёт (LSPD)',
-        hint:'Работая в <b>LSPD</b>, поставьте на учёт 2 транспортных средства других игроков. Выполняется через соответствующую команду на посту.',
+        hint:'Работая в <b>LSPD</b>, проверьте и поставьте на учёт 2 транспортных средства других игроков. Выполняется через соответствующую команду на посту.',
         base:1, vip:2
       },
       {
         id:'f11',
         name:'Произвести 1 арест в КПЗ',
-        hint:'Работая в <b>LSPD или LSSD</b>, задержите нарушителя и оформите арест в КПЗ.',
+        hint:'Работая в <b>LSPD или LSSD</b>, задержите нарушителя и оформите арест в КПЗ. Нужно довести задержанного до камеры и завершить оформление.',
         base:1, vip:2
       },
       {
         id:'f12',
         name:'Выкупить 2 человек из КПЗ (адвокат)',
-        hint:'Работая <b>адвокатом</b>, оформите залог и выпустите 2 заключённых из КПЗ. Требуется адвокатская лицензия.',
+        hint:'Работая <b>адвокатом</b> в LSPD/LSSD, оформите залог и выпустите 2 заключённых из КПЗ. Требуется адвокатская лицензия во фракции.',
         base:2, vip:4
       },
     ]
@@ -849,7 +829,6 @@ const CATS = [
 
 const TOTAL = CATS.reduce((s,c) => s + c.acts.length, 0);
 
-/* ════ STATE ════ */
 const S = {
   checked: new Set(),
   hidden:  new Set(),
@@ -858,38 +837,59 @@ const S = {
   x2:      false,
 };
 
-/* ════ CLOUD STORAGE ════
-   Telegram.WebApp.CloudStorage — до 1024 ключей, ~4KB на ключ,
-   синхронизируется между устройствами одного пользователя.
-   Один ключ 'bp_state' хранит весь стейт в JSON.
+const CS_ORDER_KEY = 'bp_order';
 
-   Fallback: если CloudStorage недоступен (браузер, старый TG) —
-   используем localStorage, чтобы приложение всегда работало.
-   ═══════════════════════════════════════════════════════════ */
+function defaultOrder() {
+  return CATS.flatMap(c => c.acts.map(a => a.id));
+}
+
+const ACT_MAP = {};
+CATS.forEach(c => c.acts.forEach(a => { ACT_MAP[a.id] = {...a, catId: c.id}; }));
+
+let ORDER = defaultOrder();
+
+let _orderTimer = null;
+function saveOrder() {
+  clearTimeout(_orderTimer);
+  _orderTimer = setTimeout(() => {
+    const cs = window.Telegram?.WebApp?.CloudStorage;
+    const val = JSON.stringify(ORDER);
+    if (cs) cs.setItem(CS_ORDER_KEY, val);
+    else { try { localStorage.setItem(CS_ORDER_KEY, val); } catch(_) {} }
+  }, 600);
+}
+
+function loadOrder(cb) {
+  const cs = window.Telegram?.WebApp?.CloudStorage;
+  const apply = val => {
+    if (val) {
+      try {
+        const arr = JSON.parse(val);
+        const def = defaultOrder();
+        const set = new Set(arr);
+        if (arr.length === def.length && def.every(id => set.has(id))) ORDER = arr;
+      } catch(_) {}
+    }
+    cb();
+  };
+  if (cs) cs.getItem(CS_ORDER_KEY, (err, val) => apply(err ? null : val));
+  else { try { apply(localStorage.getItem(CS_ORDER_KEY)); } catch(_) { cb(); } }
+}
 
 const CS_KEY = 'bp_state';
-
-/* Абстракция хранилища — CloudStorage или localStorage */
 const Store = {
   get(cb) {
     const cs = window.Telegram?.WebApp?.CloudStorage;
-    if (cs) {
-      cs.getItem(CS_KEY, (err, val) => cb(err ? null : val));
-    } else {
-      cb(localStorage.getItem(CS_KEY));
-    }
+    if (cs) cs.getItem(CS_KEY, (err, val) => cb(err ? null : val));
+    else cb(localStorage.getItem(CS_KEY));
   },
   set(val) {
     const cs = window.Telegram?.WebApp?.CloudStorage;
-    if (cs) {
-      cs.setItem(CS_KEY, val);
-    } else {
-      try { localStorage.setItem(CS_KEY, val); } catch(_) {}
-    }
+    if (cs) cs.setItem(CS_KEY, val);
+    else { try { localStorage.setItem(CS_KEY, val); } catch(_) {} }
   },
 };
 
-/* Сериализация стейта в JSON */
 function serializeState() {
   return JSON.stringify({
     checked: [...S.checked],
@@ -900,7 +900,6 @@ function serializeState() {
   });
 }
 
-/* Восстановление стейта из JSON строки */
 function deserializeState(raw) {
   if (!raw) return false;
   try {
@@ -914,26 +913,18 @@ function deserializeState(raw) {
   } catch(_) { return false; }
 }
 
-/* Дебаунс: не пишем в CloudStorage на каждый тап,
-   а ждём 800ms тишины после последнего изменения */
 let _saveTimer = null;
 function scheduleSave() {
   clearTimeout(_saveTimer);
   _saveTimer = setTimeout(() => Store.set(serializeState()), 800);
 }
 
-/* ════ CALC ════
-   Логика BP:
-   без VIP, без x2  → base
-   VIP или x2       → vip  (base×2)
-   VIP + x2         → vip×2 (base×4)
-   x2 работает независимо от VIP.
-   ════════════════ */
 function pts(a) {
-  if (S.vip && S.x2) return a.vip * 2;  // ×4
-  if (S.vip || S.x2) return a.vip;       // ×2
-  return a.base;                          // ×1
+  if (S.vip && S.x2) return a.vip * 2;
+  if (S.vip || S.x2) return a.vip;
+  return a.base;
 }
+
 function calc() {
   let base=0, bonus=0, cnt=0, visibleCnt=0;
   CATS.forEach(c => c.acts.forEach(a => {
@@ -947,10 +938,41 @@ function calc() {
   return { base, bonus, earned:base+bonus, total:base+bonus+S.balance, cnt, visibleCnt };
 }
 
-/* ════ OPEN HINTS ════ */
 const openHints = new Set();
 
-/* ════ BUILD MAIN LIST ════ */
+function makeActWrap(a) {
+  const wrap = document.createElement('div');
+  wrap.className = 'act-wrap';
+  wrap.id = 'aw-'+a.id;
+
+  const row = document.createElement('div');
+  row.className = 'act';
+  row.dataset.id = a.id;
+  row.innerHTML = `
+    <div class="chkbox"><span class="chk-ico">✓</span></div>
+    <span class="act-name">${a.name}</span>
+    <span class="act-pts" id="ap-${a.id}">${a.base}</span>
+    <button class="hint-btn" data-hid="${a.id}" aria-label="Подсказка">
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none" style="color:inherit">
+        <circle cx="7" cy="7" r="6.25" stroke="currentColor" stroke-width="1.5"/>
+        <path d="M5.5 5.25C5.5 4.42 6.17 3.75 7 3.75C7.83 3.75 8.5 4.42 8.5 5.25C8.5 5.88 8.12 6.42 7.57 6.68C7.23 6.84 7 7.17 7 7.54V8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+        <circle cx="7" cy="10" r="0.75" fill="currentColor"/>
+      </svg>
+    </button>`;
+
+  const panel = document.createElement('div');
+  panel.className = 'hint-panel';
+  panel.id = 'hp-'+a.id;
+  panel.innerHTML = `<div class="hint-inner"><span class="hint-icon">💡</span><span class="hint-text">${a.hint}</span></div>`;
+
+  row.addEventListener('click', e => { if (!e.target.closest('.hint-btn')) toggle(a.id); });
+  row.querySelector('.hint-btn').addEventListener('click', e => { e.stopPropagation(); toggleHint(a.id); });
+
+  wrap.appendChild(row);
+  wrap.appendChild(panel);
+  return wrap;
+}
+
 function build() {
   const root = document.getElementById('root');
   root.innerHTML = '';
@@ -967,58 +989,61 @@ function build() {
       </div>
       <div class="acts" id="al-${c.id}"></div>`;
     root.appendChild(sec);
-
     const list = document.getElementById('al-'+c.id);
-    c.acts.forEach(a => {
-      const wrap = document.createElement('div');
-      wrap.className = 'act-wrap';
-      wrap.id = 'aw-'+a.id;
-
-      const row = document.createElement('div');
-      row.className = 'act';
-      row.dataset.id = a.id;
-      row.innerHTML = `
-        <div class="chkbox"><span class="chk-ico">✓</span></div>
-        <span class="act-name">${a.name}</span>
-        <span class="act-pts" id="ap-${a.id}">${a.base}</span>
-        <button class="hint-btn" data-hid="${a.id}" aria-label="Подсказка">
-          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg" style="color:inherit">
-            <circle cx="7" cy="7" r="6.25" stroke="currentColor" stroke-width="1.5"/>
-            <path d="M5.5 5.25C5.5 4.42 6.17 3.75 7 3.75C7.83 3.75 8.5 4.42 8.5 5.25C8.5 5.88 8.12 6.42 7.57 6.68C7.23 6.84 7 7.17 7 7.54V8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-            <circle cx="7" cy="10" r="0.75" fill="currentColor"/>
-          </svg>
-        </button>`;
-
-      const panel = document.createElement('div');
-      panel.className = 'hint-panel';
-      panel.id = 'hp-'+a.id;
-      panel.innerHTML = `<div class="hint-inner"><span class="hint-icon">💡</span><span class="hint-text">${a.hint}</span></div>`;
-
-      row.addEventListener('click', e => {
-        if (e.target.closest('.hint-btn')) return;
-        toggle(a.id);
-      });
-      row.querySelector('.hint-btn').addEventListener('click', e => {
-        e.stopPropagation();
-        toggleHint(a.id);
-      });
-
-      wrap.appendChild(row);
-      wrap.appendChild(panel);
-      list.appendChild(wrap);
+    const catIds = new Set(c.acts.map(a => a.id));
+    ORDER.filter(id => catIds.has(id)).forEach(id => {
+      const a = ACT_MAP[id];
+      if (a) list.appendChild(makeActWrap(a));
     });
   });
   refreshMain();
 }
 
-/* ════ BUILD SETTINGS LIST ════ */
+function rebuildOrder() {
+  CATS.forEach(c => {
+    const list = document.getElementById('al-'+c.id);
+    if (!list) return;
+    const catIds = new Set(c.acts.map(a => a.id));
+    ORDER.filter(id => catIds.has(id)).forEach(id => {
+      const wrap = document.getElementById('aw-'+id);
+      if (wrap) list.appendChild(wrap);
+    });
+  });
+}
+
+const DRAG_SVG = `<svg width="12" height="18" viewBox="0 0 12 18" fill="none">
+  <circle cx="3.5" cy="3.5"  r="1.5" fill="currentColor"/>
+  <circle cx="8.5" cy="3.5"  r="1.5" fill="currentColor"/>
+  <circle cx="3.5" cy="9"    r="1.5" fill="currentColor"/>
+  <circle cx="8.5" cy="9"    r="1.5" fill="currentColor"/>
+  <circle cx="3.5" cy="14.5" r="1.5" fill="currentColor"/>
+  <circle cx="8.5" cy="14.5" r="1.5" fill="currentColor"/>
+</svg>`;
+
+function makeStgRow(a) {
+  const row = document.createElement('div');
+  row.className = 'stg-row' + (S.hidden.has(a.id) ? ' hidden-row' : '');
+  row.id = 'sr-'+a.id;
+  row.dataset.actId = a.id;
+  row.innerHTML = `
+    <div class="stg-drag">${DRAG_SVG}</div>
+    <span class="stg-row-name">${a.name}</span>
+    <span class="stg-row-pts">${a.base}/${a.vip}</span>
+    <div class="stg-sw ${S.hidden.has(a.id) ? '' : 'on'}" id="stgsw-${a.id}">
+      <div class="stg-sw-k"></div>
+    </div>`;
+  row.querySelector('.stg-sw').addEventListener('click', () => toggleHidden(a.id));
+  attachDragHandle(row.querySelector('.stg-drag'), row);
+  return row;
+}
+
 function buildSettings() {
   const root = document.getElementById('settingsRoot');
   root.innerHTML = '';
   CATS.forEach(c => {
     const sec = document.createElement('div');
     sec.className = 'stg-sec';
-
+    sec.dataset.catId = c.id;
     const hdr = document.createElement('div');
     hdr.className = 'stg-sec-hdr';
     hdr.innerHTML = `
@@ -1027,30 +1052,181 @@ function buildSettings() {
         <button class="stg-bulk-btn" data-cat="${c.id}" data-action="hide">Скрыть все</button>
         <button class="stg-bulk-btn" data-cat="${c.id}" data-action="show">Показать все</button>
       </div>`;
-    hdr.querySelectorAll('.stg-bulk-btn').forEach(btn => {
-      btn.addEventListener('click', () => bulkToggle(btn.dataset.cat, btn.dataset.action === 'show'));
-    });
+    hdr.querySelectorAll('.stg-bulk-btn').forEach(btn =>
+      btn.addEventListener('click', () => bulkToggle(btn.dataset.cat, btn.dataset.action === 'show'))
+    );
     sec.appendChild(hdr);
-
-    c.acts.forEach(a => {
-      const row = document.createElement('div');
-      row.className = 'stg-row' + (S.hidden.has(a.id) ? ' hidden-row' : '');
-      row.id = 'sr-'+a.id;
-      row.innerHTML = `
-        <span class="stg-row-name">${a.name}</span>
-        <span class="stg-row-pts">${a.base}/${a.vip}</span>
-        <div class="stg-sw ${S.hidden.has(a.id) ? '' : 'on'}" id="stgsw-${a.id}">
-          <div class="stg-sw-k"></div>
-        </div>`;
-      row.querySelector('.stg-sw').addEventListener('click', () => toggleHidden(a.id));
-      sec.appendChild(row);
+    const catIds = new Set(c.acts.map(a => a.id));
+    ORDER.filter(id => catIds.has(id)).forEach(id => {
+      const a = ACT_MAP[id];
+      if (a) sec.appendChild(makeStgRow(a));
     });
-
     root.appendChild(sec);
   });
 }
 
-/* ════ TOGGLE HINT ════ */
+let dnd = null;
+
+function attachDragHandle(handle, row) {
+  handle.addEventListener('touchstart', e => startDrag(e, row), { passive: false });
+  handle.addEventListener('mousedown',  e => startDrag(e, row));
+}
+
+function startDrag(e, row) {
+  e.preventDefault();
+  e.stopPropagation();
+  const touch    = e.touches ? e.touches[0] : e;
+  const rect     = row.getBoundingClientRect();
+  const sec      = row.closest('.stg-sec');
+  const catId    = sec.dataset.catId;
+  const scrollEl = document.querySelector('.settings-scroll');
+
+  tg?.HapticFeedback?.impactOccurred('medium');
+
+  const a = ACT_MAP[row.dataset.actId];
+  const clone = document.createElement('div');
+  clone.className = 'stg-clone';
+  clone.style.width = rect.width + 'px';
+  clone.innerHTML = `
+    <div class="stg-clone-handle">${DRAG_SVG}</div>
+    <span class="stg-clone-name">${a ? a.name : ''}</span>
+    <span class="stg-clone-pts">${a ? a.base+'/'+a.vip : ''}</span>
+    <div class="stg-clone-sw ${S.hidden.has(a?.id) ? '' : 'on'}"></div>`;
+  clone.style.transform = `translate(${rect.left}px,${rect.top}px) scale(1)`;
+  clone.style.transition = 'none';
+  document.body.appendChild(clone);
+
+  requestAnimationFrame(() => {
+    clone.style.transition = 'transform .15s cubic-bezier(.34,1.56,.64,1), box-shadow .15s';
+    clone.style.transform  = `translate(${rect.left}px,${rect.top}px) scale(1.04)`;
+    clone.style.boxShadow  = '0 24px 64px rgba(0,0,0,.85), 0 0 0 1.5px rgba(91,156,246,.35)';
+  });
+
+  row.classList.add('dnd-ghost');
+  const allAtStart = [...sec.querySelectorAll('.stg-row')];
+
+  dnd = {
+    row, clone, sec, catId, scrollEl,
+    originIndex:        allAtStart.indexOf(row),
+    currentTargetIndex: allAtStart.indexOf(row),
+    rowH:    rect.height + 4,
+    offsetY: touch.clientY - rect.top,
+    offsetX: touch.clientX - rect.left,
+    getRows: () => [...sec.querySelectorAll('.stg-row:not(.dnd-ghost)')],
+  };
+
+  document.addEventListener('touchmove', onDragMove, { passive: false });
+  document.addEventListener('touchend',  onDragEnd,  { passive: false });
+  document.addEventListener('mousemove', onDragMove);
+  document.addEventListener('mouseup',   onDragEnd);
+}
+
+function onDragMove(e) {
+  if (!dnd) return;
+  e.preventDefault();
+  const touch   = e.touches ? e.touches[0] : e;
+  const clientY = touch.clientY;
+  const clientX = touch.clientX;
+
+  dnd.clone.style.transition = 'box-shadow .15s';
+  dnd.clone.style.transform  = `translate(${clientX - dnd.offsetX}px,${clientY - dnd.offsetY}px) scale(1.04)`;
+
+  const sr = dnd.scrollEl.getBoundingClientRect();
+  if      (clientY < sr.top    + 55) dnd.scrollEl.scrollTop -= 7;
+  else if (clientY > sr.bottom - 55) dnd.scrollEl.scrollTop += 7;
+
+  const rows = dnd.getRows();
+  let targetIndex = rows.length;
+  for (let i = 0; i < rows.length; i++) {
+    const rr = rows[i].getBoundingClientRect();
+    if (clientY < rr.top + rr.height / 2) { targetIndex = i; break; }
+  }
+
+  const allRows = [...dnd.sec.querySelectorAll('.stg-row')];
+  const ghostIdx = allRows.indexOf(dnd.row);
+  let absTarget = targetIndex;
+  if (targetIndex > 0) {
+    let nonGhostCount = 0;
+    for (let i = 0; i < allRows.length; i++) {
+      if (allRows[i] === dnd.row) continue;
+      if (nonGhostCount === targetIndex) { absTarget = i; break; }
+      nonGhostCount++;
+      absTarget = i + 1;
+    }
+  }
+
+  if (dnd.currentTargetIndex === absTarget) return;
+  dnd.currentTargetIndex = absTarget;
+
+  const h = dnd.rowH;
+  allRows.forEach((r, i) => {
+    if (r === dnd.row) return;
+    let shift = 0;
+    if (ghostIdx < absTarget) {
+      if (i > ghostIdx && i < absTarget) shift = -h;
+    } else {
+      if (i >= absTarget && i < ghostIdx) shift = h;
+    }
+    r.style.transform = shift ? `translateY(${shift}px)` : '';
+  });
+
+  hSel();
+}
+
+function onDragEnd(e) {
+  if (!dnd) return;
+  document.removeEventListener('touchmove', onDragMove);
+  document.removeEventListener('touchend',  onDragEnd);
+  document.removeEventListener('mousemove', onDragMove);
+  document.removeEventListener('mouseup',   onDragEnd);
+
+  const { row, clone, sec, catId, currentTargetIndex } = dnd;
+
+  [...sec.querySelectorAll('.stg-row')].forEach(r => { r.style.transform = ''; });
+  row.classList.remove('dnd-ghost');
+
+  const allRows = [...sec.querySelectorAll('.stg-row')];
+  if (currentTargetIndex >= allRows.length) {
+    const lastRow = allRows[allRows.length - 1];
+    if (lastRow && lastRow !== row) lastRow.after(row);
+  } else {
+    const refRow = allRows[currentTargetIndex];
+    if (refRow && refRow !== row) sec.insertBefore(row, refRow);
+  }
+
+  const finalRect = row.getBoundingClientRect();
+  clone.style.transition = 'transform .2s cubic-bezier(.32,.72,0,1), opacity .18s, box-shadow .18s';
+  clone.style.transform  = `translate(${finalRect.left}px,${finalRect.top}px) scale(1)`;
+  clone.style.opacity    = '0';
+  clone.style.boxShadow  = '0 4px 12px rgba(0,0,0,.4)';
+  setTimeout(() => clone.remove(), 210);
+
+  tg?.HapticFeedback?.impactOccurred('light');
+
+  const cat = CATS.find(c => c.id === catId);
+  if (cat) {
+    const catIds = new Set(cat.acts.map(a => a.id));
+    const newCatOrder = [...sec.querySelectorAll('.stg-row')]
+      .map(r => r.dataset.actId)
+      .filter(id => id && catIds.has(id));
+    let ci = 0;
+    ORDER = ORDER.map(id => catIds.has(id) ? newCatOrder[ci++] : id);
+    rebuildOrder();
+    saveOrder();
+  }
+
+  dnd = null;
+}
+
+function resetOrder() {
+  ORDER = defaultOrder();
+  saveOrder();
+  rebuildOrder();
+  const settEl = document.getElementById('settingsRoot');
+  if (settEl && settEl.children.length) buildSettings();
+  hNote();
+}
+
 function toggleHint(id) {
   const panel = document.getElementById('hp-'+id);
   const row   = document.querySelector(`.act[data-id="${id}"]`);
@@ -1070,24 +1246,19 @@ function toggleHint(id) {
   }
 }
 
-/* ════ TOGGLE HIDDEN ════ */
 function toggleHidden(id) {
   if (S.hidden.has(id)) {
     S.hidden.delete(id);
   } else {
     S.hidden.add(id);
-    // убрать из checked если скрыли
     S.checked.delete(id);
-    // закрыть подсказку
     if (openHints.has(id)) toggleHint(id);
   }
-  // обновить settings UI
-  const sw  = document.getElementById('stgsw-'+id);
-  const sr  = document.getElementById('sr-'+id);
-  if (sw) sw.classList.toggle('on', !S.hidden.has(id));
-  if (sr) sr.classList.toggle('hidden-row', S.hidden.has(id));
-  // обновить main UI
+  const sw   = document.getElementById('stgsw-'+id);
+  const sr   = document.getElementById('sr-'+id);
   const wrap = document.getElementById('aw-'+id);
+  if (sw)   sw.classList.toggle('on', !S.hidden.has(id));
+  if (sr)   sr.classList.toggle('hidden-row', S.hidden.has(id));
   if (wrap) wrap.style.display = S.hidden.has(id) ? 'none' : '';
   refreshMain();
   scheduleSave();
@@ -1117,11 +1288,10 @@ function bulkToggle(catId, show) {
   hSel();
 }
 
-/* ════ REFRESH MAIN DOM ════ */
 const _prev = {};
 function bumpEl(id, num, txt) {
   const el = document.getElementById(id);
-  if (!el || _prev[id]===num) return;
+  if (!el || _prev[id] === num) return;
   _prev[id] = num;
   el.textContent = txt;
   el.style.transform = 'scale(1.1)';
@@ -1130,7 +1300,6 @@ function bumpEl(id, num, txt) {
 
 function refreshMain() {
   const {base, bonus, earned, total, cnt, visibleCnt} = calc();
-
   CATS.forEach(c => {
     let sum = 0;
     c.acts.forEach(a => {
@@ -1148,18 +1317,14 @@ function refreshMain() {
     const ss = document.getElementById('ss-'+c.id);
     if (ss) { ss.textContent = sum ? '+'+sum : '0'; ss.classList.toggle('on', sum > 0); }
   });
-
   bumpEl('vBase',   base,   ''+base);
   bumpEl('vBonus',  bonus,  '+'+bonus);
   bumpEl('vEarned', earned, ''+earned);
   bumpEl('vTotal',  total,  ''+total);
   document.getElementById('pfill').style.width = (visibleCnt > 0 ? cnt/visibleCnt*100 : 0)+'%';
-
-  // Кнопка настроек — подсветить если есть скрытые
   document.getElementById('btnSettings').classList.toggle('settings-open', S.hidden.size > 0);
 }
 
-/* ════ ACTIONS ════ */
 function toggle(id) {
   if (S.hidden.has(id)) return;
   const el = document.querySelector(`.act[data-id="${id}"]`);
@@ -1200,7 +1365,6 @@ function resetProgress() {
   S.balance = 0;
   Object.keys(_prev).forEach(k => delete _prev[k]);
   document.getElementById('balInp').value = '';
-  // не сбрасываем vip, x2 и hidden — только прогресс
   setVip(S.vip); setX2(S.x2);
   scheduleSave();
   hNote();
@@ -1221,7 +1385,6 @@ function showAllActivities() {
   hSel();
 }
 
-/* ════ EVENTS ════ */
 document.getElementById('balInp').addEventListener('input', e => {
   S.balance = Math.max(0, Math.min(999999, parseInt(e.target.value)||0));
   refreshMain();
@@ -1231,8 +1394,6 @@ document.querySelectorAll('.vip-pill').forEach(b =>
   b.addEventListener('click', () => setVip(b.dataset.v==='1'))
 );
 document.getElementById('x2Row').addEventListener('click', () => { setX2(!S.x2); hSel(); });
-
-// Settings open/close
 document.getElementById('btnSettings').addEventListener('click', () => {
   buildSettings();
   document.getElementById('settingsOverlay').classList.add('vis');
@@ -1243,8 +1404,7 @@ document.getElementById('settingsOverlay').addEventListener('click', e => {
   if (e.target === e.currentTarget) e.currentTarget.classList.remove('vis');
 });
 document.getElementById('btnShowAll').addEventListener('click', showAllActivities);
-
-// Reset modal
+document.getElementById('btnResetOrder').addEventListener('click', resetOrder);
 document.getElementById('btnReset').addEventListener('click', () =>
   document.getElementById('modal').classList.add('vis'));
 document.getElementById('mNo').addEventListener('click', () =>
@@ -1257,16 +1417,12 @@ document.getElementById('modal').addEventListener('click', e => {
   if (e.target === e.currentTarget) e.currentTarget.classList.remove('vis');
 });
 
-/* ════ INIT ════ */
-
-/* Показываем индикатор загрузки пока тянем стейт */
 function showLoader(on) {
   document.getElementById('loader').style.display = on ? 'flex' : 'none';
   document.querySelector('.scroll').style.visibility = on ? 'hidden' : '';
   document.querySelector('.panel').style.visibility  = on ? 'hidden' : '';
 }
 
-/* Восстанавливаем hidden-состояние wrap-элементов после десериализации */
 function applyHiddenToDOM() {
   S.hidden.forEach(id => {
     const wrap = document.getElementById('aw-'+id);
@@ -1274,27 +1430,25 @@ function applyHiddenToDOM() {
   });
 }
 
-/* Восстанавливаем VIP/x2 кнопки без вызова scheduleSave */
 function applyModifiers() {
-  // VIP pills
   document.querySelectorAll('.vip-pill').forEach(b => {
     b.classList.remove('act-on','act-off');
     b.classList.add((b.dataset.v==='1')===S.vip ? 'act-on' : 'act-off');
   });
-  // x2
   document.getElementById('x2Ben').classList.toggle('x2-on', S.x2);
   document.getElementById('x2Txt').textContent = S.x2 ? 'вкл' : 'выкл';
-  // balance
   if (S.balance > 0) document.getElementById('balInp').value = S.balance;
 }
 
 showLoader(true);
-Store.get(raw => {
-  deserializeState(raw);   // безопасно — при null просто дефолты
-  build();                  // строим DOM (карточки)
-  applyHiddenToDOM();       // скрываем нужные
-  applyModifiers();         // восстанавливаем переключатели
-  refreshMain();            // финальный рендер
+const pState = new Promise(res => Store.get(raw => res(raw)));
+const pOrder = new Promise(res => loadOrder(res));
+Promise.all([pState, pOrder]).then(([raw]) => {
+  deserializeState(raw);
+  build();
+  applyHiddenToDOM();
+  applyModifiers();
+  refreshMain();
   showLoader(false);
 });
 </script>
