@@ -52,12 +52,13 @@ input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button { -webkit-appearance:none }
 
 .page { display:flex; flex-direction:column; min-height:100dvh }
-.scroll { flex:1; overflow-y:auto; padding:10px 10px calc(152px + var(--safe)) }
+.scroll { flex:1; overflow-y:auto; padding:10px 10px calc(220px + var(--safe)) }
 
 .hdr {
   display:flex; align-items:center; justify-content:space-between;
-  padding:14px 12px 12px; border-bottom:1px solid var(--line);
+  padding:0 12px; border-bottom:1px solid var(--line);
   position:sticky; top:0; z-index:20; background:var(--bg);
+  height:58px; flex-shrink:0;
 }
 .hdr-logo { font-family:var(--mono); font-size:15px; font-weight:700; color:var(--t1); letter-spacing:-.5px }
 .hdr-logo em { color:var(--lime); font-style:normal }
@@ -194,9 +195,9 @@ input::-webkit-inner-spin-button { -webkit-appearance:none }
 .hint-text b { color:var(--t1); font-weight:600 }
 
 .panel {
-  position:fixed; bottom:0; left:0; right:0; z-index:30;
-  padding:8px 10px; padding-bottom:calc(8px + var(--safe));
-  background:linear-gradient(to top, var(--bg) 50%, transparent);
+  position:fixed; bottom:calc(57px + var(--safe)); left:0; right:0; z-index:30;
+  padding:8px 10px 4px;
+  background:none;
   pointer-events:none;
 }
 .panel-card {
@@ -355,6 +356,199 @@ input::-webkit-inner-spin-button { -webkit-appearance:none }
 @keyframes spin { to { transform:rotate(360deg) } }
 .pulse-g { animation:pg .35s ease }
 .pulse-l { animation:pl .35s ease }
+
+.tab-bar {
+  position:fixed; bottom:0; left:0; right:0; z-index:60;
+  display:flex; background:var(--card); border-top:1px solid var(--line);
+  padding-bottom:var(--safe);
+}
+.tab-btn {
+  flex:1; display:flex; flex-direction:column; align-items:center;
+  justify-content:center; gap:3px; padding:10px 0 9px;
+  cursor:pointer; border:none; background:none;
+  color:var(--t3); font-family:var(--body); font-size:10px; font-weight:700;
+  text-transform:uppercase; letter-spacing:.7px;
+  transition:color .18s; -webkit-tap-highlight-color:transparent; position:relative;
+}
+.tab-btn::before {
+  content:''; position:absolute; top:0; left:20%; right:20%; height:2px;
+  background:var(--lime); border-radius:0 0 2px 2px;
+  transform:scaleX(0); transition:transform .2s cubic-bezier(.34,1.56,.64,1);
+}
+.tab-btn.active { color:var(--lime) }
+.tab-btn.active::before { transform:scaleX(1) }
+.tab-btn svg { display:block }
+
+.guides-hdr {
+  position:fixed; top:0; left:0; right:0; z-index:20;
+  display:flex; align-items:center; justify-content:space-between;
+  padding:0 12px; border-bottom:1px solid var(--line);
+  background:var(--bg);
+  height:58px;
+}
+.guides-hdr-logo { font-family:var(--mono); font-size:15px; font-weight:700; color:var(--t1); letter-spacing:-.5px }
+.guides-hdr-logo em { color:var(--green); font-style:normal }
+.guides-hdr-sub { font-size:11px; font-weight:600; color:var(--t3); font-family:var(--body) }
+
+.page-guides {
+  display:none; position:fixed; inset:0; z-index:1;
+  top:58px; bottom:58px; overflow-y:auto;
+  background:var(--bg); padding:10px 10px 20px;
+}
+.page-guides.active { display:block }
+
+.guide-sec { margin-bottom:0; padding-top:12px }
+.guide-sec:first-child { padding-top:0 }
+.guide-sec-hdr { display:flex; align-items:center; gap:7px; margin-bottom:8px; padding:0 1px }
+.guide-sec-name { font-size:10px; font-weight:700; color:#6e6e82; text-transform:uppercase; letter-spacing:.9px }
+.guide-sec-sep  { flex:1; height:1px; background:var(--line) }
+
+.med-card {
+  display:flex; align-items:stretch;
+  border-radius:var(--r2); margin-bottom:6px;
+  overflow:hidden; border:1px solid #2a2a2a; min-height:48px;
+}
+.med-problem {
+  flex:1; display:flex; align-items:center;
+  padding:12px;
+  background:var(--card);
+  font-size:13px; font-weight:500; color:var(--t2);
+  min-width:0; line-height:1.35;
+  border-right:1px solid #2a2a2a;
+}
+.med-solution {
+  width:44%; display:flex; align-items:center; justify-content:center;
+  padding:12px 10px;
+  background:var(--green-bg);
+  font-size:12px; font-weight:700; color:var(--green);
+  text-align:center; line-height:1.3;
+  flex-shrink:0;
+}
+
+.guide-tabs {
+  display:flex; gap:0; margin-bottom:12px;
+  background:var(--card); border:1px solid var(--line2);
+  border-radius:var(--r2); overflow:hidden; flex-shrink:0;
+}
+.guide-tab {
+  flex:1; padding:11px 0; position:relative;
+  border:none; background:none;
+  font-family:var(--body); font-size:11px; font-weight:700;
+  color:var(--t3); cursor:pointer; text-align:center;
+  letter-spacing:.4px; transition:color .18s;
+  -webkit-tap-highlight-color:transparent;
+}
+.guide-tab + .guide-tab { border-left:1px solid var(--line2) }
+.guide-tab::after {
+  content:''; position:absolute; bottom:0; left:15%; right:15%; height:2px;
+  background:var(--lime); border-radius:2px 2px 0 0;
+  transform:scaleX(0); transition:transform .2s cubic-bezier(.34,1.56,.64,1);
+}
+.guide-tab.active { color:var(--lime) }
+.guide-tab.active::after { transform:scaleX(1) }
+.guide-tab:active { opacity:.6 }
+
+.guide-panel { display:none }
+.guide-panel.active { display:block }
+
+.skill-card {
+  background:var(--card); border:1px solid #2f2f2f;
+  border-radius:var(--r2); margin-bottom:6px; overflow:hidden;
+}
+.skill-head {
+  display:flex; align-items:center; justify-content:space-between;
+  padding:10px 12px; border-bottom:1px solid var(--line); gap:8px;
+}
+.skill-name {
+  font-size:13px; font-weight:600; color:var(--t1); flex:1; min-width:0;
+}
+.skill-meta {
+  display:flex; gap:10px; align-items:center; flex-shrink:0;
+}
+.skill-stat {
+  display:flex; flex-direction:column; align-items:center; gap:2px;
+}
+.skill-stat-lbl {
+  font-size:9px; font-weight:700; color:#6e6e82;
+  text-transform:uppercase; letter-spacing:.5px; white-space:nowrap;
+}
+.skill-stat-val {
+  font-family:var(--mono); font-size:14px; font-weight:700; line-height:1;
+}
+.skill-stat-unit {
+  font-family:var(--mono); font-size:9px; color:#6e6e82; line-height:1;
+}
+.skill-stat.novip .skill-stat-val { color:var(--t2) }
+.skill-stat.vip   .skill-stat-val { color:var(--lime) }
+.skill-stat-sep {
+  width:1px; height:30px; background:var(--line2); flex-shrink:0;
+}
+.skill-body { padding:9px 12px }
+.skill-section-lbl {
+  font-size:9px; font-weight:700; color:#6e6e82;
+  text-transform:uppercase; letter-spacing:.6px;
+  display:block; margin-bottom:5px;
+}
+.skill-xp { display:flex; gap:4px; flex-wrap:wrap; margin-bottom:9px }
+.xp-chip {
+  font-family:var(--mono); font-size:10px; font-weight:700;
+  background:var(--card2); border:1px solid var(--line2);
+  border-radius:4px; padding:2px 6px; color:var(--t3);
+}
+.skill-divider { height:1px; background:var(--line); margin:0 0 7px }
+.skill-bonus { font-size:12px; color:var(--t2); line-height:1.6 }
+
+.ten-group {
+  background:var(--card); border:1px solid #2f2f2f;
+  border-radius:var(--r2); overflow:hidden; margin-bottom:6px;
+}
+.ten-row {
+  display:flex; align-items:center; gap:10px;
+  padding:10px 12px; border-bottom:1px solid var(--line);
+  min-height:44px;
+}
+.ten-row:last-child { border-bottom:none }
+.ten-code {
+  font-family:var(--mono); font-size:12px; font-weight:700;
+  width:44px; flex-shrink:0; letter-spacing:.5px;
+}
+.ten-blue   { color:var(--blue) }
+.ten-green  { color:var(--green) }
+.ten-red    { color:var(--red) }
+.ten-orange { color:var(--orange) }
+.ten-desc {
+  font-size:13px; font-weight:500; color:var(--t2);
+  line-height:1.35; flex:1;
+}
+
+
+
+
+.miranda-card {
+  background:var(--card); border:1px solid #2f2f2f;
+  border-radius:var(--r2); overflow:hidden; margin-bottom:6px;
+}
+.miranda-body {
+  padding:12px;
+  font-size:13px; color:var(--t2); line-height:1.7;
+}
+.miranda-body b { color:var(--t1); font-weight:700 }
+.miranda-body-repeat {
+  color:var(--orange);
+  padding-top:0;
+}
+.miranda-divider {
+  display:flex; align-items:center; gap:8px;
+  padding:0 12px; margin:2px 0;
+}
+.miranda-divider::before,
+.miranda-divider::after {
+  content:''; flex:1; height:1px; background:var(--line);
+}
+.miranda-divider-lbl {
+  font-size:9px; font-weight:700; color:#6e6e82;
+  text-transform:uppercase; letter-spacing:.6px; white-space:nowrap;
+}
 </style>
 </head>
 <body>
@@ -400,7 +594,7 @@ input::-webkit-inner-spin-button { -webkit-appearance:none }
   <div id="root"></div>
 </div>
 
-<div class="panel">
+<div class="panel" id="statPanel">
   <div class="panel-card">
     <div class="pbar"><div class="pfill" id="pfill"></div></div>
     <div class="stats">
@@ -1420,7 +1614,7 @@ document.getElementById('modal').addEventListener('click', e => {
 function showLoader(on) {
   document.getElementById('loader').style.display = on ? 'flex' : 'none';
   document.querySelector('.scroll').style.visibility = on ? 'hidden' : '';
-  document.querySelector('.panel').style.visibility  = on ? 'hidden' : '';
+  document.getElementById('statPanel').style.visibility = on ? 'hidden' : '';
 }
 
 function applyHiddenToDOM() {
@@ -1451,6 +1645,763 @@ Promise.all([pState, pOrder]).then(([raw]) => {
   refreshMain();
   showLoader(false);
 });
+
+function switchTab(tab) {
+  const isBP = tab === 'BP';
+  document.getElementById('tabBP').classList.toggle('active', isBP);
+  document.getElementById('tabGuides').classList.toggle('active', !isBP);
+  document.getElementById('pageGuides').classList.toggle('active', !isBP);
+  document.getElementById('guidesHdr').style.display = isBP ? 'none' : 'flex';
+  document.querySelector('.scroll').style.visibility = isBP ? '' : 'hidden';
+  document.querySelector('.hdr').style.visibility   = isBP ? '' : 'hidden';
+  document.getElementById('statPanel').style.display = isBP ? '' : 'none';
+  if (!isBP) hSel();
+}
+
+
+
+function switchGuideTab(id, btn) {
+  document.querySelectorAll('.guide-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.guide-tab').forEach(b => b.classList.remove('active'));
+  document.getElementById('gp-' + id).classList.add('active');
+  btn.classList.add('active');
+  hSel();
+}
+
+
+
 </script>
+
+<div class="guides-hdr" id="guidesHdr" style="display:none">
+  <div class="guides-hdr-logo">Guide<em>//</em>book</div>
+  <span class="guides-hdr-sub">GTA5RP</span>
+</div>
+
+<div class="page-guides" id="pageGuides">
+  <div class="guide-tabs">
+    <button class="guide-tab active" onclick="switchGuideTab('med', this)">Мед помощь</button>
+    <button class="guide-tab" onclick="switchGuideTab('skills', this)">Навыки</button>
+    <button class="guide-tab" onclick="switchGuideTab('gov', this)">ГосСправка</button>
+  </div>
+
+  <div class="guide-panel active" id="gp-med">
+    <div class="guide-sec">
+      <div class="guide-sec-hdr">
+        <span class="guide-sec-name">Диагноз → Лечение</span>
+        <div class="guide-sec-sep"></div>
+      </div>
+      <div class="med-card"><span class="med-problem">Артериальное кровотечение</span><span class="med-solution">Жгут выше раны</span></div>
+      <div class="med-card"><span class="med-problem">Венозное кровотечение</span><span class="med-solution">Жгут ниже раны</span></div>
+      <div class="med-card"><span class="med-problem">Вывих</span><span class="med-solution">Наложить шину</span></div>
+      <div class="med-card"><span class="med-problem">Кислотный ожог</span><span class="med-solution">Щелочной раствор</span></div>
+      <div class="med-card"><span class="med-problem">Недостаточность</span><span class="med-solution">Таблетка</span></div>
+      <div class="med-card"><span class="med-problem">Обморожение</span><span class="med-solution">Тепло</span></div>
+      <div class="med-card"><span class="med-problem">Огнестрельная рана</span><span class="med-solution">Повязка антисептическая</span></div>
+      <div class="med-card"><span class="med-problem">Перелом</span><span class="med-solution">Наложить шину</span></div>
+      <div class="med-card"><span class="med-problem">Рана</span><span class="med-solution">Повязка антисептическая</span></div>
+      <div class="med-card"><span class="med-problem">Растяжение</span><span class="med-solution">Тугая повязка</span></div>
+      <div class="med-card"><span class="med-problem">Термический ожог</span><span class="med-solution">Холодный компресс</span></div>
+      <div class="med-card"><span class="med-problem">Ушиб</span><span class="med-solution">Лёд / холодный компресс</span></div>
+      <div class="med-card"><span class="med-problem">Щелочной ожог</span><span class="med-solution">Кислый раствор</span></div>
+    </div>
+  </div>
+
+  <div class="guide-panel" id="gp-skills">
+    <div class="guide-sec">
+      <div class="guide-sec-hdr">
+        <span class="guide-sec-name">Работа / навык → прокачка</span>
+        <div class="guide-sec-sep"></div>
+      </div>
+    <div class="skill-card">
+      <div class="skill-head">
+        <span class="skill-name">Сила</span>
+        <div class="skill-meta">
+          <div class="skill-stat novip">
+            <span class="skill-stat-lbl">Без VIP</span>
+            <span class="skill-stat-val">~30</span>
+            <span class="skill-stat-unit">часов</span>
+          </div>
+          <div class="skill-stat-sep"></div>
+          <div class="skill-stat vip">
+            <span class="skill-stat-lbl">Platinum</span>
+            <span class="skill-stat-val">~15</span>
+            <span class="skill-stat-unit">часов</span>
+          </div>
+        </div>
+      </div>
+      <div class="skill-body">
+        <span class="skill-section-lbl">Действий на уровень</span>
+        <div class="skill-xp"><span class="xp-chip">100</span><span class="xp-chip">200</span><span class="xp-chip">300</span><span class="xp-chip">400</span><span class="xp-chip">500</span></div>
+        <div class="skill-divider"></div>
+        <span class="skill-section-lbl">Бонусы прокачки</span>
+        <div class="skill-bonus">Улучшается рельеф мышц. Скорость бега и плавания +4% за каждый уровень. Скорость копания, лазания по лестницам и дыхания под водой</div>
+      </div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-head">
+        <span class="skill-name">Стрельба</span>
+        <div class="skill-meta">
+          <div class="skill-stat novip">
+            <span class="skill-stat-lbl">Без VIP</span>
+            <span class="skill-stat-val">~160</span>
+            <span class="skill-stat-unit">часов</span>
+          </div>
+          <div class="skill-stat-sep"></div>
+          <div class="skill-stat vip">
+            <span class="skill-stat-lbl">Platinum</span>
+            <span class="skill-stat-val">~80</span>
+            <span class="skill-stat-unit">часов</span>
+          </div>
+        </div>
+      </div>
+      <div class="skill-body">
+        <span class="skill-section-lbl">Действий на уровень</span>
+        <div class="skill-xp"><span class="xp-chip">5</span><span class="xp-chip">5</span><span class="xp-chip">5</span><span class="xp-chip">5</span><span class="xp-chip">15</span><span class="xp-chip">15</span><span class="xp-chip">15</span><span class="xp-chip">15</span><span class="xp-chip">20</span></div>
+        <div class="skill-divider"></div>
+        <span class="skill-section-lbl">Бонусы прокачки</span>
+        <div class="skill-bonus">Уменьшение разброса. Доступ к двум анимациям стрельбы с пистолетов</div>
+      </div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-head">
+        <span class="skill-name">Кулинария</span>
+        <div class="skill-meta">
+          <div class="skill-stat novip">
+            <span class="skill-stat-lbl">Без VIP</span>
+            <span class="skill-stat-val">~2</span>
+            <span class="skill-stat-unit">часов</span>
+          </div>
+          <div class="skill-stat-sep"></div>
+          <div class="skill-stat vip">
+            <span class="skill-stat-lbl">Platinum</span>
+            <span class="skill-stat-val">~1</span>
+            <span class="skill-stat-unit">часов</span>
+          </div>
+        </div>
+      </div>
+      <div class="skill-body">
+        <span class="skill-section-lbl">Действий на уровень</span>
+        <div class="skill-xp"><span class="xp-chip">50</span><span class="xp-chip">100</span><span class="xp-chip">150</span><span class="xp-chip">200</span><span class="xp-chip">250</span></div>
+        <div class="skill-divider"></div>
+        <span class="skill-section-lbl">Бонусы прокачки</span>
+        <div class="skill-bonus">Доступ к новым видам блюд каждый уровень</div>
+      </div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-head">
+        <span class="skill-name">Рыболовство</span>
+        <div class="skill-meta">
+          <div class="skill-stat novip">
+            <span class="skill-stat-lbl">Без VIP</span>
+            <span class="skill-stat-val">~16</span>
+            <span class="skill-stat-unit">часов</span>
+          </div>
+          <div class="skill-stat-sep"></div>
+          <div class="skill-stat vip">
+            <span class="skill-stat-lbl">Platinum</span>
+            <span class="skill-stat-val">~8</span>
+            <span class="skill-stat-unit">часов</span>
+          </div>
+        </div>
+      </div>
+      <div class="skill-body">
+        <span class="skill-section-lbl">Действий на уровень</span>
+        <div class="skill-xp"><span class="xp-chip">25</span><span class="xp-chip">75</span><span class="xp-chip">200</span><span class="xp-chip">400</span><span class="xp-chip">600</span><span class="xp-chip">1000</span></div>
+        <div class="skill-divider"></div>
+        <span class="skill-section-lbl">Бонусы прокачки</span>
+        <div class="skill-bonus">Уменьшение веса рыбы в инвентаре</div>
+      </div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-head">
+        <span class="skill-name">Охота</span>
+        <div class="skill-meta">
+          <div class="skill-stat novip">
+            <span class="skill-stat-lbl">Без VIP</span>
+            <span class="skill-stat-val">~150</span>
+            <span class="skill-stat-unit">часов</span>
+          </div>
+          <div class="skill-stat-sep"></div>
+          <div class="skill-stat vip">
+            <span class="skill-stat-lbl">Platinum</span>
+            <span class="skill-stat-val">~75</span>
+            <span class="skill-stat-unit">часов</span>
+          </div>
+        </div>
+      </div>
+      <div class="skill-body">
+        <span class="skill-section-lbl">Действий на уровень</span>
+        <div class="skill-xp"><span class="xp-chip">100</span><span class="xp-chip">150</span><span class="xp-chip">200</span><span class="xp-chip">250</span><span class="xp-chip">300</span></div>
+        <div class="skill-divider"></div>
+        <span class="skill-section-lbl">Бонусы прокачки</span>
+        <div class="skill-bonus">Растёт минимальное качество шкур. Шанс сохранить прочность разделочного ножа</div>
+      </div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-head">
+        <span class="skill-name">Поиск сокровищ</span>
+        <div class="skill-meta">
+          <div class="skill-stat novip">
+            <span class="skill-stat-lbl">Без VIP</span>
+            <span class="skill-stat-val">~350</span>
+            <span class="skill-stat-unit">часов</span>
+          </div>
+          <div class="skill-stat-sep"></div>
+          <div class="skill-stat vip">
+            <span class="skill-stat-lbl">Platinum</span>
+            <span class="skill-stat-val">~170</span>
+            <span class="skill-stat-unit">часов</span>
+          </div>
+        </div>
+      </div>
+      <div class="skill-body">
+        <span class="skill-section-lbl">Действий на уровень</span>
+        <div class="skill-xp"><span class="xp-chip">100</span><span class="xp-chip">200</span><span class="xp-chip">300</span><span class="xp-chip">400</span><span class="xp-chip">500</span></div>
+        <div class="skill-divider"></div>
+        <span class="skill-section-lbl">Бонусы прокачки</span>
+        <div class="skill-bonus">Уменьшение шанса найти хлам. +10% к цене сдачи сокровищ за каждый уровень</div>
+      </div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-head">
+        <span class="skill-name">Фермерство</span>
+        <div class="skill-meta">
+          <div class="skill-stat novip">
+            <span class="skill-stat-lbl">Без VIP</span>
+            <span class="skill-stat-val">~64</span>
+            <span class="skill-stat-unit">часов</span>
+          </div>
+          <div class="skill-stat-sep"></div>
+          <div class="skill-stat vip">
+            <span class="skill-stat-lbl">Platinum</span>
+            <span class="skill-stat-val">~32</span>
+            <span class="skill-stat-unit">часов</span>
+          </div>
+        </div>
+      </div>
+      <div class="skill-body">
+        <span class="skill-section-lbl">Действий на уровень</span>
+        <div class="skill-xp"><span class="xp-chip">500</span><span class="xp-chip">500</span><span class="xp-chip">1000</span><span class="xp-chip">1000</span><span class="xp-chip">1500</span></div>
+        <div class="skill-divider"></div>
+        <span class="skill-section-lbl">Бонусы прокачки</span>
+        <div class="skill-bonus">Рост оплаты. Ур.2 — трактор. Ур.3 — пшеница и комбайн. Ур.5 — самолёт для химикатов</div>
+      </div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-head">
+        <span class="skill-name">Строитель</span>
+        <div class="skill-meta">
+          <div class="skill-stat novip">
+            <span class="skill-stat-lbl">Без VIP</span>
+            <span class="skill-stat-val">~56</span>
+            <span class="skill-stat-unit">часов</span>
+          </div>
+          <div class="skill-stat-sep"></div>
+          <div class="skill-stat vip">
+            <span class="skill-stat-lbl">Platinum</span>
+            <span class="skill-stat-val">~28</span>
+            <span class="skill-stat-unit">часов</span>
+          </div>
+        </div>
+      </div>
+      <div class="skill-body">
+        <span class="skill-section-lbl">Действий на уровень</span>
+        <div class="skill-xp"><span class="xp-chip">1500</span><span class="xp-chip">2250</span><span class="xp-chip">3000</span><span class="xp-chip">3750</span><span class="xp-chip">4500</span></div>
+        <div class="skill-divider"></div>
+        <span class="skill-section-lbl">Бонусы прокачки</span>
+        <div class="skill-bonus">Рост оплаты. Ур.3 — грузоподъёмник</div>
+      </div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-head">
+        <span class="skill-name">Шахтёр</span>
+        <div class="skill-meta">
+          <div class="skill-stat novip">
+            <span class="skill-stat-lbl">Без VIP</span>
+            <span class="skill-stat-val">~68</span>
+            <span class="skill-stat-unit">часов</span>
+          </div>
+          <div class="skill-stat-sep"></div>
+          <div class="skill-stat vip">
+            <span class="skill-stat-lbl">Platinum</span>
+            <span class="skill-stat-val">~34</span>
+            <span class="skill-stat-unit">часов</span>
+          </div>
+        </div>
+      </div>
+      <div class="skill-body">
+        <span class="skill-section-lbl">Действий на уровень</span>
+        <div class="skill-xp"><span class="xp-chip">1000</span><span class="xp-chip">1500</span><span class="xp-chip">2000</span><span class="xp-chip">2500</span><span class="xp-chip">3000</span></div>
+        <div class="skill-divider"></div>
+        <span class="skill-section-lbl">Бонусы прокачки</span>
+        <div class="skill-bonus">Рост оплаты. Ур.3 — бульдозер</div>
+      </div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-head">
+        <span class="skill-name">Порт</span>
+        <div class="skill-meta">
+          <div class="skill-stat novip">
+            <span class="skill-stat-lbl">Без VIP</span>
+            <span class="skill-stat-val">~60</span>
+            <span class="skill-stat-unit">часов</span>
+          </div>
+          <div class="skill-stat-sep"></div>
+          <div class="skill-stat vip">
+            <span class="skill-stat-lbl">Platinum</span>
+            <span class="skill-stat-val">~30</span>
+            <span class="skill-stat-unit">часов</span>
+          </div>
+        </div>
+      </div>
+      <div class="skill-body">
+        <span class="skill-section-lbl">Действий на уровень</span>
+        <div class="skill-xp"><span class="xp-chip">1500</span><span class="xp-chip">2250</span><span class="xp-chip">3000</span><span class="xp-chip">3750</span><span class="xp-chip">4500</span></div>
+        <div class="skill-divider"></div>
+        <span class="skill-section-lbl">Бонусы прокачки</span>
+        <div class="skill-bonus">Рост оплаты. Ур.3 — контейнерный погрузчик</div>
+      </div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-head">
+        <span class="skill-name">Таксист</span>
+        <div class="skill-meta">
+          <div class="skill-stat novip">
+            <span class="skill-stat-lbl">Без VIP</span>
+            <span class="skill-stat-val">~200</span>
+            <span class="skill-stat-unit">часов</span>
+          </div>
+          <div class="skill-stat-sep"></div>
+          <div class="skill-stat vip">
+            <span class="skill-stat-lbl">Platinum</span>
+            <span class="skill-stat-val">~100</span>
+            <span class="skill-stat-unit">часов</span>
+          </div>
+        </div>
+      </div>
+      <div class="skill-body">
+        <span class="skill-section-lbl">Действий на уровень</span>
+        <div class="skill-xp"><span class="xp-chip">100</span><span class="xp-chip">200</span><span class="xp-chip">300</span><span class="xp-chip">400</span><span class="xp-chip">500</span></div>
+        <div class="skill-divider"></div>
+        <span class="skill-section-lbl">Бонусы прокачки</span>
+        <div class="skill-bonus">Тюнинг авто каждый уровень. Ур.1 BF Olivia A7 → Ур.5 Benefactor S-series W223</div>
+      </div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-head">
+        <span class="skill-name">Дайвер</span>
+        <div class="skill-meta">
+          <div class="skill-stat novip">
+            <span class="skill-stat-lbl">Без VIP</span>
+            <span class="skill-stat-val">~60</span>
+            <span class="skill-stat-unit">часов</span>
+          </div>
+          <div class="skill-stat-sep"></div>
+          <div class="skill-stat vip">
+            <span class="skill-stat-lbl">Platinum</span>
+            <span class="skill-stat-val">~30</span>
+            <span class="skill-stat-unit">часов</span>
+          </div>
+        </div>
+      </div>
+      <div class="skill-body">
+        <span class="skill-section-lbl">Действий на уровень</span>
+        <div class="skill-xp"><span class="xp-chip">85</span><span class="xp-chip">170</span><span class="xp-chip">255</span><span class="xp-chip">340</span><span class="xp-chip">425</span></div>
+        <div class="skill-divider"></div>
+        <span class="skill-section-lbl">Бонусы прокачки</span>
+        <div class="skill-bonus">Рост оплаты. Ур.3 — озеро Сэнди-Шорс. Ур.5 — батискаф</div>
+      </div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-head">
+        <span class="skill-name">Инкассатор</span>
+        <div class="skill-meta">
+          <div class="skill-stat novip">
+            <span class="skill-stat-lbl">Без VIP</span>
+            <span class="skill-stat-val">~80</span>
+            <span class="skill-stat-unit">часов</span>
+          </div>
+          <div class="skill-stat-sep"></div>
+          <div class="skill-stat vip">
+            <span class="skill-stat-lbl">Platinum</span>
+            <span class="skill-stat-val">~40</span>
+            <span class="skill-stat-unit">часов</span>
+          </div>
+        </div>
+      </div>
+      <div class="skill-body">
+        <span class="skill-section-lbl">Действий на уровень</span>
+        <div class="skill-xp"><span class="xp-chip">40</span><span class="xp-chip">80</span><span class="xp-chip">120</span><span class="xp-chip">160</span><span class="xp-chip">200</span></div>
+        <div class="skill-divider"></div>
+        <span class="skill-section-lbl">Бонусы прокачки</span>
+        <div class="skill-bonus">Рост оплаты каждый уровень</div>
+      </div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-head">
+        <span class="skill-name">Водитель автобуса</span>
+        <div class="skill-meta">
+          <div class="skill-stat novip">
+            <span class="skill-stat-lbl">Без VIP</span>
+            <span class="skill-stat-val">~64</span>
+            <span class="skill-stat-unit">часов</span>
+          </div>
+          <div class="skill-stat-sep"></div>
+          <div class="skill-stat vip">
+            <span class="skill-stat-lbl">Platinum</span>
+            <span class="skill-stat-val">~32</span>
+            <span class="skill-stat-unit">часов</span>
+          </div>
+        </div>
+      </div>
+      <div class="skill-body">
+        <span class="skill-section-lbl">Действий на уровень</span>
+        <div class="skill-xp"><span class="xp-chip">35</span><span class="xp-chip">75</span><span class="xp-chip">105</span><span class="xp-chip">135</span><span class="xp-chip">175</span></div>
+        <div class="skill-divider"></div>
+        <span class="skill-section-lbl">Бонусы прокачки</span>
+        <div class="skill-bonus">Рост оплаты. Новые маршруты каждый уровень</div>
+      </div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-head">
+        <span class="skill-name">Механик</span>
+        <div class="skill-meta">
+          <div class="skill-stat novip">
+            <span class="skill-stat-lbl">Без VIP</span>
+            <span class="skill-stat-val">~64</span>
+            <span class="skill-stat-unit">часов</span>
+          </div>
+          <div class="skill-stat-sep"></div>
+          <div class="skill-stat vip">
+            <span class="skill-stat-lbl">Platinum</span>
+            <span class="skill-stat-val">~32</span>
+            <span class="skill-stat-unit">часов</span>
+          </div>
+        </div>
+      </div>
+      <div class="skill-body">
+        <span class="skill-section-lbl">Действий на уровень</span>
+        <div class="skill-xp"><span class="xp-chip">40</span><span class="xp-chip">80</span><span class="xp-chip">120</span><span class="xp-chip">160</span><span class="xp-chip">200</span></div>
+        <div class="skill-divider"></div>
+        <span class="skill-section-lbl">Бонусы прокачки</span>
+        <div class="skill-bonus">Тюнинг авто. Ур.5 — машина-эвакуатор</div>
+      </div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-head">
+        <span class="skill-name">Пожарный</span>
+        <div class="skill-meta">
+          <div class="skill-stat novip">
+            <span class="skill-stat-lbl">Без VIP</span>
+            <span class="skill-stat-val">~56</span>
+            <span class="skill-stat-unit">часов</span>
+          </div>
+          <div class="skill-stat-sep"></div>
+          <div class="skill-stat vip">
+            <span class="skill-stat-lbl">Platinum</span>
+            <span class="skill-stat-val">~28</span>
+            <span class="skill-stat-unit">часов</span>
+          </div>
+        </div>
+      </div>
+      <div class="skill-body">
+        <span class="skill-section-lbl">Действий на уровень</span>
+        <div class="skill-xp"><span class="xp-chip">250</span><span class="xp-chip">500</span><span class="xp-chip">750</span><span class="xp-chip">1000</span><span class="xp-chip">1250</span></div>
+        <div class="skill-divider"></div>
+        <span class="skill-section-lbl">Бонусы прокачки</span>
+        <div class="skill-bonus">Рост оплаты каждый уровень</div>
+      </div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-head">
+        <span class="skill-name">Дальнобойщик</span>
+        <div class="skill-meta">
+          <div class="skill-stat novip">
+            <span class="skill-stat-lbl">Без VIP</span>
+            <span class="skill-stat-val">~100</span>
+            <span class="skill-stat-unit">часов</span>
+          </div>
+          <div class="skill-stat-sep"></div>
+          <div class="skill-stat vip">
+            <span class="skill-stat-lbl">Platinum</span>
+            <span class="skill-stat-val">~50</span>
+            <span class="skill-stat-unit">часов</span>
+          </div>
+        </div>
+      </div>
+      <div class="skill-body">
+        <span class="skill-section-lbl">Действий на уровень</span>
+        <div class="skill-xp"><span class="xp-chip">40</span><span class="xp-chip">80</span><span class="xp-chip">120</span><span class="xp-chip">160</span><span class="xp-chip">200</span></div>
+        <div class="skill-divider"></div>
+        <span class="skill-section-lbl">Бонусы прокачки</span>
+        <div class="skill-bonus">Рост оплаты каждый уровень</div>
+      </div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-head">
+        <span class="skill-name">Курьер</span>
+        <div class="skill-meta">
+          <div class="skill-stat novip">
+            <span class="skill-stat-lbl">Без VIP</span>
+            <span class="skill-stat-val">~140</span>
+            <span class="skill-stat-unit">часов</span>
+          </div>
+          <div class="skill-stat-sep"></div>
+          <div class="skill-stat vip">
+            <span class="skill-stat-lbl">Platinum</span>
+            <span class="skill-stat-val">~70</span>
+            <span class="skill-stat-unit">часов</span>
+          </div>
+        </div>
+      </div>
+      <div class="skill-body">
+        <span class="skill-section-lbl">Действий на уровень</span>
+        <div class="skill-xp"><span class="xp-chip">100</span><span class="xp-chip">200</span><span class="xp-chip">300</span><span class="xp-chip">400</span><span class="xp-chip">500</span></div>
+        <div class="skill-divider"></div>
+        <span class="skill-section-lbl">Бонусы прокачки</span>
+        <div class="skill-bonus">Рост оплаты. Ур.5 — нумерация оптимального маршрута</div>
+      </div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-head">
+        <span class="skill-name">Почтальон</span>
+        <div class="skill-meta">
+          <div class="skill-stat novip">
+            <span class="skill-stat-lbl">Без VIP</span>
+            <span class="skill-stat-val">~32</span>
+            <span class="skill-stat-unit">часов</span>
+          </div>
+          <div class="skill-stat-sep"></div>
+          <div class="skill-stat vip">
+            <span class="skill-stat-lbl">Platinum</span>
+            <span class="skill-stat-val">~16</span>
+            <span class="skill-stat-unit">часов</span>
+          </div>
+        </div>
+      </div>
+      <div class="skill-body">
+        <span class="skill-section-lbl">Действий на уровень</span>
+        <div class="skill-xp"><span class="xp-chip">140</span><span class="xp-chip">280</span><span class="xp-chip">420</span><span class="xp-chip">560</span><span class="xp-chip">700</span></div>
+        <div class="skill-divider"></div>
+        <span class="skill-section-lbl">Бонусы прокачки</span>
+        <div class="skill-bonus">Рост оплаты +100$ за уровень. Ур.5 — велосипед или мотоцикл</div>
+      </div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-head">
+        <span class="skill-name">Подрядчик</span>
+        <div class="skill-meta">
+          <div class="skill-stat novip">
+            <span class="skill-stat-lbl">Без VIP</span>
+            <span class="skill-stat-val">~300</span>
+            <span class="skill-stat-unit">часов</span>
+          </div>
+          <div class="skill-stat-sep"></div>
+          <div class="skill-stat vip">
+            <span class="skill-stat-lbl">Platinum</span>
+            <span class="skill-stat-val">~150</span>
+            <span class="skill-stat-unit">часов</span>
+          </div>
+        </div>
+      </div>
+      <div class="skill-body">
+        <span class="skill-section-lbl">Действий на уровень</span>
+        <div class="skill-xp"><span class="xp-chip">10</span><span class="xp-chip">20</span><span class="xp-chip">30</span><span class="xp-chip">40</span><span class="xp-chip">50</span></div>
+        <div class="skill-divider"></div>
+        <span class="skill-section-lbl">Бонусы прокачки</span>
+        <div class="skill-bonus">+2% к шансу закрытия контракта за каждый уровень</div>
+      </div>
+    </div>
+    </div>
+  </div>
+  <div class="guide-panel" id="gp-gov">
+    <div class="guide-sec">
+      <div class="guide-sec-hdr">
+        <span class="guide-sec-name">Права Миранды</span>
+        <div class="guide-sec-sep"></div>
+      </div>
+      <div class="miranda-card">
+        <div class="miranda-body">
+          Вы имеете право хранить молчание. Все, что вы скажете, может быть использовано против вас в суде. Вы имеете право на один телефонный звонок, также вы имеете право на адвоката. Если вам необходим адвокат, он будет для вас запрошен. <b>Вы понимаете свои права?</b>
+        </div>
+        <div class="miranda-divider">
+          <span class="miranda-divider-lbl">При повторном зачтении</span>
+        </div>
+        <div class="miranda-body miranda-body-repeat">
+          Миранда зачитана дважды и более в повторении не нуждается.
+        </div>
+      </div>
+    </div>
+    <div class="guide-sec">
+      <div class="guide-sec-hdr">
+        <span class="guide-sec-name">Базовые</span>
+        <div class="guide-sec-sep"></div>
+      </div>
+      <div class="ten-group">
+      <div class="ten-row">
+        <span class="ten-code ten-blue">10-0</span>
+        <span class="ten-desc">Отмена, отбой</span>
+      </div>
+      <div class="ten-row">
+        <span class="ten-code ten-blue">10-3</span>
+        <span class="ten-desc">Прекратите передачу (радиомолчание)</span>
+      </div>
+      <div class="ten-row">
+        <span class="ten-code ten-blue">10-4</span>
+        <span class="ten-desc">Сообщение принял</span>
+      </div>
+      <div class="ten-row">
+        <span class="ten-code ten-blue">10-5</span>
+        <span class="ten-desc">Ретранслируйте сообщение</span>
+      </div>
+      <div class="ten-row">
+        <span class="ten-code ten-blue">10-6</span>
+        <span class="ten-desc">Я занят, подождите</span>
+      </div>
+      <div class="ten-row">
+        <span class="ten-code ten-blue">10-7</span>
+        <span class="ten-desc">Повторите ваше сообщение</span>
+      </div>
+      <div class="ten-row">
+        <span class="ten-code ten-blue">10-11</span>
+        <span class="ten-desc">Нет, отрицаю</span>
+      </div>
+      <div class="ten-row">
+        <span class="ten-code ten-blue">10-18</span>
+        <span class="ten-desc">Срочно. Побыстрее</span>
+      </div>
+      <div class="ten-row">
+        <span class="ten-code ten-blue">10-26</span>
+        <span class="ten-desc">Последняя информация отменяется</span>
+      </div>
+      </div>
+    </div>
+    <div class="guide-sec">
+      <div class="guide-sec-hdr">
+        <span class="guide-sec-name">Статус</span>
+        <div class="guide-sec-sep"></div>
+      </div>
+      <div class="ten-group">
+      <div class="ten-row">
+        <span class="ten-code ten-green">10-8</span>
+        <span class="ten-desc">Заступаю на пост, готов к работе</span>
+      </div>
+      <div class="ten-row">
+        <span class="ten-code ten-green">10-9</span>
+        <span class="ten-desc">Продолжаю стоять на посту</span>
+      </div>
+      <div class="ten-row">
+        <span class="ten-code ten-green">10-10</span>
+        <span class="ten-desc">Заканчиваю стоять на посту</span>
+      </div>
+      <div class="ten-row">
+        <span class="ten-code ten-green">10-12</span>
+        <span class="ten-desc">На КПП посетитель</span>
+      </div>
+      <div class="ten-row">
+        <span class="ten-code ten-green">10-20</span>
+        <span class="ten-desc">Текущее местоположение</span>
+      </div>
+      <div class="ten-row">
+        <span class="ten-code ten-green">10-77</span>
+        <span class="ten-desc">Расчетное время прибытия</span>
+      </div>
+      </div>
+    </div>
+    <div class="guide-sec">
+      <div class="guide-sec-hdr">
+        <span class="guide-sec-name">Тревога</span>
+        <div class="guide-sec-sep"></div>
+      </div>
+      <div class="ten-group">
+      <div class="ten-row">
+        <span class="ten-code ten-red">10-13</span>
+        <span class="ten-desc">В моей зоне слышны выстрелы</span>
+      </div>
+      <div class="ten-row">
+        <span class="ten-code ten-red">10-15</span>
+        <span class="ten-desc">Требуется мед. помощь (10-20)</span>
+      </div>
+      <div class="ten-row">
+        <span class="ten-code ten-red">10-16</span>
+        <span class="ten-desc">Организуйте перехват</span>
+      </div>
+      <div class="ten-row">
+        <span class="ten-code ten-red">10-34</span>
+        <span class="ten-desc">Требуется помощь</span>
+      </div>
+      <div class="ten-row">
+        <span class="ten-code ten-red">10-37</span>
+        <span class="ten-desc">Требуется тех. помощь</span>
+      </div>
+      <div class="ten-row">
+        <span class="ten-code ten-red">10-50</span>
+        <span class="ten-desc">Веду преследование</span>
+      </div>
+      <div class="ten-row">
+        <span class="ten-code ten-red">10-78</span>
+        <span class="ten-desc">Проникновение на территорию Форта (10-20)</span>
+      </div>
+      </div>
+    </div>
+    <div class="guide-sec">
+      <div class="guide-sec-hdr">
+        <span class="guide-sec-name">Патруль</span>
+        <div class="guide-sec-sep"></div>
+      </div>
+      <div class="ten-group">
+      <div class="ten-row">
+        <span class="ten-code ten-orange">10-14</span>
+        <span class="ten-desc">Веду сопровождение объекта</span>
+      </div>
+      <div class="ten-row">
+        <span class="ten-code ten-orange">10-40</span>
+        <span class="ten-desc">Начинаю патруль</span>
+      </div>
+      <div class="ten-row">
+        <span class="ten-code ten-orange">10-41</span>
+        <span class="ten-desc">Веду патруль</span>
+      </div>
+      <div class="ten-row">
+        <span class="ten-code ten-orange">10-42</span>
+        <span class="ten-desc">Заканчиваю патруль</span>
+      </div>
+      <div class="ten-row">
+        <span class="ten-code ten-orange">10-60</span>
+        <span class="ten-desc">Вышел в воздушный патруль</span>
+      </div>
+      <div class="ten-row">
+        <span class="ten-code ten-orange">10-61</span>
+        <span class="ten-desc">Веду воздушный патруль</span>
+      </div>
+      <div class="ten-row">
+        <span class="ten-code ten-orange">10-62</span>
+        <span class="ten-desc">Заканчиваю воздушный патруль</span>
+      </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="tab-bar" id="tabBar">
+  <button class="tab-btn active" id="tabBP" onclick="switchTab('BP')">
+    <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+      <rect x="2" y="2" width="6" height="6" rx="1.5" fill="currentColor" opacity=".9"/>
+      <rect x="10" y="2" width="6" height="6" rx="1.5" fill="currentColor" opacity=".5"/>
+      <rect x="2" y="10" width="6" height="6" rx="1.5" fill="currentColor" opacity=".5"/>
+      <rect x="10" y="10" width="6" height="6" rx="1.5" fill="currentColor" opacity=".9"/>
+    </svg>
+    BP Калькулятор
+  </button>
+  <button class="tab-btn" id="tabGuides" onclick="switchTab('Guides')">
+    <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+      <rect x="2" y="3" width="14" height="2" rx="1" fill="currentColor"/>
+      <rect x="2" y="8" width="10" height="2" rx="1" fill="currentColor"/>
+      <rect x="2" y="13" width="12" height="2" rx="1" fill="currentColor"/>
+    </svg>
+    Гайды
+  </button>
+</div>
 </body>
 </html>
