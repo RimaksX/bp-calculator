@@ -403,7 +403,9 @@ input::-webkit-inner-spin-button { -webkit-appearance:none }
 
 .guide-sec { margin-bottom:0; padding-top:12px }
 .guide-sec:first-child { padding-top:0 }
-.guide-sec-hdr { display:flex; align-items:center; gap:7px; margin-bottom:8px; padding:0 1px }
+.guide-sec-hdr { display:flex; align-items:center; gap:7px; margin-top:14px; margin-bottom:8px; padding:0 1px }
+.guide-sec-hdr:first-child { margin-top:0 }
+.club-panel > .guide-sec-hdr:first-of-type { margin-top:2px }
 .guide-sec-name { font-size:11px; font-weight:600; color:#7a7a8e; text-transform:uppercase; letter-spacing:.7px }
 .guide-sec-sep  { flex:1; height:1px; background:var(--line) }
 
@@ -430,7 +432,7 @@ input::-webkit-inner-spin-button { -webkit-appearance:none }
 }
 
 .guide-tabs {
-  display:flex; gap:0; margin-bottom:12px;
+  display:flex; gap:0; margin-bottom:6px;
   background:var(--card); border:1px solid var(--line2);
   border-radius:var(--r2); overflow:hidden; flex-shrink:0;
 }
@@ -876,6 +878,384 @@ input::-webkit-inner-spin-button { -webkit-appearance:none }
 /* ── fp-hint legacy cleanup ───────────────────────────── */
 .fp-hint { display:none }
 .fp-val  { display:none }
+
+
+/* ── g01: сессионный счётчик ─────────────────── */
+.act-sessions {
+  align-items:center; gap:10px; cursor:pointer;
+  min-height:56px;
+}
+.sess-left {
+  flex:1; display:flex; flex-direction:column; gap:3px; min-width:0;
+}
+.sess-name {
+  font-size:13px; font-weight:500; color:#9a9aaa;
+}
+.sess-sub {
+  font-size:11px; color:#666680; font-weight:400; transition:color .2s;
+}
+.sess-sub.sess-sub-active {
+  color:var(--green); font-weight:600;
+}
+.sess-cnt {
+  display:flex; align-items:center; gap:0; flex-shrink:0;
+  background:var(--card2); border:1px solid var(--line2);
+  border-radius:var(--r2); overflow:hidden;
+}
+.sess-btn {
+  width:36px; height:36px; border:none; background:none;
+  display:flex; align-items:center; justify-content:center;
+  font-size:20px; font-weight:300; line-height:1;
+  cursor:pointer; color:var(--t3); transition:color .15s, background .15s;
+  -webkit-tap-highlight-color:transparent; touch-action:manipulation;
+  user-select:none;
+}
+.sess-btn:active { opacity:.5 }
+.sess-btn:disabled { opacity:.25; pointer-events:none }
+.sess-minus { color:var(--red) }
+.sess-plus  { color:var(--green) }
+.sess-val {
+  font-family:var(--mono); font-size:20px; font-weight:700;
+  color:#d0d0e0; min-width:36px; text-align:center; line-height:1;
+  padding:0 4px;
+  border-left:1px solid var(--line2); border-right:1px solid var(--line2);
+}
+
+
+/* ── Клубы: sub-nav — второй ряд вкладок ─────────────────── */
+.club-subnav {
+  display:none; flex-wrap:nowrap;
+  background:var(--card); border:1px solid var(--line2);
+  border-radius:var(--r2); overflow:hidden;
+  margin-top:4px; margin-bottom:8px;
+}
+.club-subnav.visible { display:flex }
+.club-tab {
+  flex:1; padding:9px 4px; position:relative; border:none; background:none;
+  font-family:var(--body); font-size:11px; font-weight:600;
+  color:#555570; cursor:pointer; text-align:center;
+  letter-spacing:.2px; transition:color .18s;
+  -webkit-tap-highlight-color:transparent;
+  border-right:1px solid var(--line2);
+}
+.club-tab:last-child { border-right:none }
+.club-tab::after {
+  content:''; position:absolute; bottom:0; left:15%; right:15%; height:2px;
+  border-radius:2px 2px 0 0;
+  transform:scaleX(0); transition:transform .2s cubic-bezier(.34,1.56,.64,1);
+}
+/* club-tab.active цвет теперь через #clubSubnav[data-active] */
+.club-tab:active { opacity:.6 }
+.club-panel { display:none }
+.club-panel.active { display:block }
+.club-intro { margin-bottom:10px }
+.club-intro-head {
+  display:flex; align-items:center; gap:10px; margin-bottom:5px;
+}
+.club-intro-name {
+  font-size:15px; font-weight:700;
+  color:var(--ca,#d8d8e8); letter-spacing:-.2px; flex:1;
+}
+.club-intro-desc {
+  font-size:12px; color:#8a8a9a; line-height:1.65; margin-bottom:8px;
+}
+.club-req {
+  display:inline-flex; align-items:center; gap:5px;
+  font-size:11px; font-weight:600; color:var(--ca,var(--orange));
+  background:var(--ca-bg,var(--orange-bg)); border:1px solid var(--ca-br,var(--orange-br));
+  border-radius:5px; padding:3px 9px;
+}
+.club-ranks { display:flex; flex-direction:column; gap:5px; margin-top:10px }
+.club-rank-row {
+  background:var(--card2); border:1px solid var(--line2);
+  border-radius:var(--r3); padding:9px 11px;
+}
+.club-rank-title {
+  display:flex; align-items:center; gap:7px; margin-bottom:7px;
+}
+.club-rank-badge {
+  font-family:var(--mono); font-size:10px; font-weight:700;
+  background:var(--orange-bg); border:1px solid var(--orange-br); color:var(--orange);
+  border-radius:4px; padding:2px 7px; flex-shrink:0;
+}
+.club-rank-lvl { font-size:12px; font-weight:600; color:#c8c8d8; }
+.club-rank-perks { display:flex; flex-direction:column; gap:4px }
+.club-quest {
+  background:var(--card); border:1px solid #2a2a2a;
+  border-radius:var(--r2); overflow:hidden; margin-bottom:5px;
+}
+.club-quest-hdr {
+  display:flex; align-items:center; gap:10px;
+  padding:10px 12px; cursor:pointer;
+  -webkit-tap-highlight-color:transparent; user-select:none;
+}
+.club-quest-hdr:active { opacity:.75 }
+.club-quest-num {
+  font-family:var(--mono); font-size:10px; font-weight:700;
+  color:var(--orange); background:var(--orange-bg);
+  border:1px solid var(--orange-br); border-radius:4px;
+  padding:2px 6px; flex-shrink:0;
+}
+.club-quest-num.common {
+  color:var(--lime); background:var(--lime-bg); border-color:var(--lime-br);
+}
+.club-quest-name { flex:1; font-size:13px; font-weight:600; color:#d0d0e0 }
+.club-quest-exp { font-family:var(--mono); font-size:11px; font-weight:500; color:#666680; flex-shrink:0 }
+.club-quest-chev { color:#555565; flex-shrink:0; transition:transform .22s ease }
+.club-quest.open .club-quest-chev { transform:rotate(180deg) }
+.club-quest-body {
+  max-height:0; overflow:hidden; border-top:0px solid var(--line);
+  transition:max-height .3s cubic-bezier(.4,0,.2,1);
+}
+.club-quest.open .club-quest-body { max-height:500px; border-top-width:1px }
+.club-quest-text { padding:10px 13px 12px; font-size:12px; color:#9a9aaa; line-height:1.75 }
+.club-quest-text b { color:#c8c8d8; font-weight:600 }
+.club-quest-text i { color:var(--orange); font-style:normal; font-weight:500 }
+.club-picket {
+  background:var(--lime-bg); border:1px solid var(--lime-br);
+  border-radius:var(--r2); padding:11px 13px; margin-bottom:5px;
+}
+.club-picket-title {
+  font-size:11px; font-weight:700; color:var(--lime);
+  text-transform:uppercase; letter-spacing:.6px; margin-bottom:6px;
+}
+.club-picket-text { font-size:12px; color:#9a9aaa; line-height:1.7 }
+.club-picket-text b { color:#c8c8d8; font-weight:600 }
+.club-picket-max {
+  display:inline-flex; align-items:center;
+  margin-top:10px;
+  font-family:var(--mono); font-size:11px; font-weight:700;
+  color:var(--lime); background:rgba(212,245,60,.07);
+  border:1px solid var(--lime-br); border-radius:5px; padding:4px 10px;
+  /* override через .club-panel выше */
+}
+.club-ach {
+  background:var(--card); border:1px solid #2a2a2a;
+  border-radius:var(--r2); padding:11px 13px; margin-bottom:5px;
+}
+.club-ach-name { font-size:13px; font-weight:600; color:#d0d0e0; margin-bottom:5px }
+.club-ach-desc { font-size:12px; color:#9a9aaa; line-height:1.65; margin-bottom:7px }
+.club-ach-reward {
+  display:inline-flex; align-items:center; gap:5px;
+  font-size:11px; font-weight:700;
+  color:var(--lime); background:var(--lime-bg);
+  border:1px solid var(--lime-br); border-radius:5px; padding:3px 9px;
+}
+
+
+/* ── Клубы: акцентные переменные по клубу ────────────────────── */
+/* Применяются через data-club атрибут на .club-panel */
+/* Rednecks - янтарь/песок */
+.club-panel[data-club="rednecks"]    { --ca:#e8a835; --ca-bg:rgba(232,168,53,.09); --ca-br:rgba(232,168,53,.25) }
+/* Merryweather - военный красный */
+.club-panel[data-club="merryweather"]{ --ca:#e05252; --ca-bg:rgba(224,82,82,.09);  --ca-br:rgba(224,82,82,.24)  }
+/* Car Meet - неон фиолетовый */
+.club-panel[data-club="carmeet"]     { --ca:#b56eff; --ca-bg:rgba(181,110,255,.09); --ca-br:rgba(181,110,255,.24) }
+/* Epsilon - небесно-голубой (клубная одежда) */
+.club-panel[data-club="epsilon"]     { --ca:#5bc8f5; --ca-bg:rgba(91,200,245,.09); --ca-br:rgba(91,200,245,.26)  }
+/* Мотоклуб - огненный оранжево-красный (асфальт, скорость) */
+.club-panel[data-club="motoclub"]    { --ca:#ff6b35; --ca-bg:rgba(255,107,53,.09); --ca-br:rgba(255,107,53,.24)  }
+
+/* Все акцентные элементы берут --ca вместо жёстких цветов */
+.club-panel .club-rank-badge   { color:var(--ca); background:var(--ca-bg); border-color:var(--ca-br) }
+.club-panel .club-quest-num    { color:var(--ca); background:var(--ca-bg); border-color:var(--ca-br) }
+.club-panel .club-quest-chev   { color:color-mix(in srgb,var(--ca) 45%,#555565 55%) }
+.club-panel .club-quest-text i { color:var(--ca) }
+.club-panel .club-intro-name   { color:var(--ca) }
+.club-panel .club-req          { color:var(--ca); background:var(--ca-bg); border-color:var(--ca-br) }
+.club-panel .guide-sec-name    { color:color-mix(in srgb,var(--ca) 45%,#7a7a8e 55%) }
+.club-panel .guide-sec-sep     { background:color-mix(in srgb,var(--ca) 20%,var(--line) 80%) }
+/* perk-main — цветом клуба */
+.club-panel .club-rank-perk.perk-main { color:color-mix(in srgb,var(--ca) 75%,#c8c8d8 25%) }
+/* Пикет / активности — через --ca клуба */
+.club-panel .club-picket        { background:var(--ca-bg) !important; border-color:var(--ca-br) !important }
+.club-panel .club-picket-title  { color:var(--ca) !important }
+.club-panel .club-picket-text b { color:#d0d0e0 }
+.club-panel .club-picket-max    { color:var(--ca) !important; background:var(--ca-bg) !important; border-color:var(--ca-br) !important }
+/* Достижения — награда */
+.club-panel .club-ach-reward      { color:var(--ca); background:var(--ca-bg); border-color:var(--ca-br) }
+
+/* Акцентные элементы — используют --ca вместо --orange */
+.club-panel .club-req        { color:var(--ca); background:var(--ca-bg); border-color:var(--ca-br) }
+.club-panel .club-rank-badge { color:var(--ca); background:var(--ca-bg); border-color:var(--ca-br) }
+.club-panel .club-rank-perk.perk-main { color:color-mix(in srgb, var(--ca) 80%, #d8d8e8 20%); }
+.club-panel .club-panel .club-quest-num  { color:var(--ca); background:var(--ca-bg); border-color:var(--ca-br) }
+.club-panel .club-quest-chev { color:color-mix(in srgb, var(--ca) 40%, #555565 60%) }
+.club-panel .club-intro-name { color:var(--ca) }
+.club-panel .guide-sec-name  { color:color-mix(in srgb, var(--ca) 50%, #7a7a8e 50%) }
+
+
+/* ── Club-tab: каждый клуб своим цветом ──────────────────── */
+#clubSubnav[data-active="rednecks"]     .club-tab[data-club="rednecks"]    ,
+#clubSubnav[data-active="merryweather"] .club-tab[data-club="merryweather"],
+#clubSubnav[data-active="carmeet"]      .club-tab[data-club="carmeet"]     ,
+#clubSubnav[data-active="epsilon"]      .club-tab[data-club="epsilon"]     ,
+#clubSubnav[data-active="motoclub"]     .club-tab[data-club="motoclub"]    {
+  color: var(--tab-ca);
+}
+#clubSubnav[data-active="rednecks"]     .club-tab[data-club="rednecks"]::after    ,
+#clubSubnav[data-active="merryweather"] .club-tab[data-club="merryweather"]::after,
+#clubSubnav[data-active="carmeet"]      .club-tab[data-club="carmeet"]::after     ,
+#clubSubnav[data-active="epsilon"]      .club-tab[data-club="epsilon"]::after     ,
+#clubSubnav[data-active="motoclub"]     .club-tab[data-club="motoclub"]::after    {
+  background: var(--tab-ca);
+  transform: scaleX(1);
+}
+/* Цвета индикатора по клубу */
+#clubSubnav[data-active="rednecks"]     { --tab-ca:#e8a835 }
+#clubSubnav[data-active="merryweather"] { --tab-ca:#e05252 }
+#clubSubnav[data-active="carmeet"]      { --tab-ca:#b56eff }
+#clubSubnav[data-active="epsilon"]      { --tab-ca:#5bc8f5 }
+#clubSubnav[data-active="motoclub"]     { --tab-ca:#ff6b35 }
+/* Убираем дефолтный оранжевый у club-tab.active */
+.club-tab.active { color:var(--tab-ca, var(--orange)) }
+.club-tab.active::after { background:var(--tab-ca, var(--orange)); transform:scaleX(1) }
+
+
+/* ── Клубы: декоративные паттерны ────────────────────────── */
+
+/* Базовая шапка-паттерн для всех клубов */
+.club-deco {
+  position:relative; overflow:hidden;
+  border-radius:var(--r2); padding:14px 13px 12px;
+  margin-bottom:10px;
+  border:1px solid var(--ca-br);
+}
+.club-deco::before {
+  content:''; position:absolute; inset:0; pointer-events:none;
+  border-radius:inherit; opacity:1;
+}
+.club-deco-body {
+  position:relative; z-index:1;
+}
+
+/* Rednecks — клетчатый фланель: горизонталь + вертикаль разной плотности */
+[data-club="rednecks"] .club-deco::before {
+  background:
+    repeating-linear-gradient(0deg,
+      transparent 0px, transparent 11px,
+      rgba(232,168,53,.06) 11px, rgba(232,168,53,.06) 12px),
+    repeating-linear-gradient(90deg,
+      transparent 0px, transparent 23px,
+      rgba(232,168,53,.04) 23px, rgba(232,168,53,.04) 24px),
+    linear-gradient(160deg, rgba(232,168,53,.08) 0%, transparent 55%);
+}
+
+/* Merryweather — шестиугольная сетка (тактика, броня) */
+[data-club="merryweather"] .club-deco::before {
+  background:
+    repeating-linear-gradient(60deg,
+      transparent 0px, transparent 10px,
+      rgba(224,82,82,.05) 10px, rgba(224,82,82,.05) 11px),
+    repeating-linear-gradient(-60deg,
+      transparent 0px, transparent 10px,
+      rgba(224,82,82,.05) 10px, rgba(224,82,82,.05) 11px),
+    linear-gradient(180deg, rgba(224,82,82,.09) 0%, transparent 60%);
+}
+
+/* Car Meet — косая разметка трека + боковой луч */
+[data-club="carmeet"] .club-deco::before {
+  background:
+    repeating-linear-gradient(-20deg,
+      transparent 0px, transparent 18px,
+      rgba(181,110,255,.05) 18px, rgba(181,110,255,.05) 19px,
+      transparent 19px, transparent 36px,
+      rgba(181,110,255,.03) 36px, rgba(181,110,255,.03) 37px),
+    linear-gradient(90deg, rgba(181,110,255,.08) 0%, transparent 70%);
+}
+
+/* Epsilon — точечный паттерн (роскошь, бриллианты) */
+[data-club="epsilon"] .club-deco::before {
+  background:
+    radial-gradient(circle, rgba(91,200,245,.18) 1px, transparent 1px),
+    linear-gradient(135deg, rgba(91,200,245,.07) 0%, transparent 55%);
+  background-size: 16px 16px, 100% 100%;
+}
+
+/* Мотоклуб — протектор шины: крупные диагональные блоки */
+[data-club="motoclub"] .club-deco::before {
+  background:
+    repeating-linear-gradient(-35deg,
+      transparent 0px, transparent 7px,
+      rgba(255,107,53,.06) 7px, rgba(255,107,53,.06) 10px,
+      transparent 10px, transparent 17px,
+      rgba(255,107,53,.03) 17px, rgba(255,107,53,.03) 20px),
+    linear-gradient(180deg, rgba(255,107,53,.09) 0%, transparent 60%);
+}
+
+/* Угловые декоры в шапке */
+.club-deco-corner {
+  position:absolute; width:10px; height:10px;
+  border-color:var(--ca-br); border-style:solid; opacity:.8;
+  border-radius:1px;
+}
+.club-deco-corner.tl { top:7px; left:7px;  border-width:1px 0 0 1px }
+.club-deco-corner.tr { top:7px; right:7px; border-width:1px 1px 0 0 }
+.club-deco-corner.bl { bottom:7px; left:7px;  border-width:0 0 1px 1px }
+.club-deco-corner.br { bottom:7px; right:7px; border-width:0 1px 1px 0 }
+
+/* Шапка: имя + req */
+.club-deco .club-intro-head { margin-bottom:4px }
+.club-deco .club-intro-name { font-size:16px; letter-spacing:-.3px }
+.club-deco .club-intro-desc { color:#8a8a9a; font-size:12px; line-height:1.6; margin-bottom:9px }
+.club-deco .club-req        { margin-top:0 }
+
+/* Тег локации клуба */
+.club-location {
+  display:inline-flex; align-items:center; gap:5px;
+  font-size:11px; color:#666680; margin-top:6px;
+}
+.club-location-dot {
+  width:5px; height:5px; border-radius:50%;
+  background:var(--ca); opacity:.7; flex-shrink:0;
+}
+
+
+.club-quest-label {
+  font-family:var(--mono); font-size:10px; font-weight:600;
+  color:#555570; background:#1e1e28; border:1px solid #2a2a3a;
+  border-radius:4px; padding:2px 6px; flex-shrink:0;
+}
+
+
+/* ── Ранги: имя + описание перка ─────────────────────────── */
+.club-rank-perk { flex-direction:column; gap:1px; align-items:flex-start }
+.club-rank-perk .rp-name {
+  font-size:12px; font-weight:600; color:#c0c0d0; line-height:1.4;
+}
+.club-rank-perk .rp-desc {
+  font-size:11px; color:#666678; line-height:1.45; font-weight:400;
+}
+.club-rank-perk.perk-main .rp-name {
+  color:color-mix(in srgb,var(--ca) 85%,#d8d8e8 15%);
+}
+/* ── Ранги: имя + описание перка ─────────────────────────── */
+.club-rank-perk {
+  display:flex; flex-direction:column;
+  gap:2px; align-items:flex-start;
+  padding:3px 0;
+}
+.club-rank-perk::before { content:none !important }
+.club-rank-perk.perk-main::before { content:none !important }
+.club-rank-perk .rp-name {
+  font-size:12px; font-weight:600; color:#c0c0d0; line-height:1.4;
+}
+.club-rank-perk .rp-desc {
+  font-size:11px; color:#606072; line-height:1.45; font-weight:400;
+}
+.club-rank-perk.perk-main .rp-name {
+  font-size:13px;
+  color:color-mix(in srgb,var(--ca) 90%,#ffffff 10%);
+}
+.club-rank-perk.perk-main .rp-desc { color:#808092 }
+.rp-total {
+  font-size:10px; font-weight:500;
+  color:color-mix(in srgb,var(--ca) 40%,#555568 60%);
+  margin-left:4px;
+}
+
+/* ── Epsilon: блоки возможностей ─────────────────────────── */
+.eps-shop { display:flex; flex-direction:column; gap:6px; }
 
 </style>
 </head>
@@ -1496,6 +1876,16 @@ function calc() {
   CATS.forEach(c => c.acts.forEach(a => {
     if (S.hidden.has(a.id)) return;
     visibleCnt++;
+    // g01 — накопительный: каждая сессия (+1) даёт pts(a) очков
+    if (a.id === 'g01') {
+      const sessions = S.counts['g01'] || 0;
+      if (sessions > 0) {
+        base  += a.base * sessions;
+        bonus += (pts(a) - a.base) * sessions;
+        cnt++;
+      }
+      return;
+    }
     if (!S.checked.has(a.id)) return;
     base  += a.base;
     bonus += pts(a) - a.base;
@@ -1510,6 +1900,34 @@ function makeActWrap(a) {
   const wrap = document.createElement('div');
   wrap.className = 'act-wrap';
   wrap.id = 'aw-'+a.id;
+
+  // ── Специальная карточка для g01 (сессионный счётчик) ────────────────────
+  if (a.id === 'g01') {
+    const row = document.createElement('div');
+    row.className = 'act act-sessions';
+    row.dataset.id = a.id;
+    row.innerHTML =
+      `<div class="sess-left">` +
+        `<span class="act-name sess-name">${a.name}</span>` +
+        `<span class="sess-sub" id="sess-sub-${a.id}">Сессий: 0 · +0 BP</span>` +
+      `</div>` +
+      `<div class="sess-cnt" id="ci-${a.id}">` +
+        `<button class="sess-btn sess-minus" onclick="g01Step(-1,event)">−</button>` +
+        `<span class="sess-val" id="sess-val-${a.id}">0</span>` +
+        `<button class="sess-btn sess-plus" onclick="g01Step(+1,event)">+</button>` +
+      `</div>`;
+    row.addEventListener('click', e => {
+      if (e.target.closest('.sess-cnt')) return;
+      toggleHint(a.id);
+    });
+    const panel = document.createElement('div');
+    panel.className = 'hint-panel';
+    panel.id = 'hp-'+a.id;
+    panel.innerHTML = `<div class="hint-inner"><span class="hint-icon">💡</span><span class="hint-text">${a.hint}</span></div>`;
+    wrap.appendChild(row);
+    wrap.appendChild(panel);
+    return wrap;
+  }
 
   const hasCnt = Object.prototype.hasOwnProperty.call(COUNTERS, a.id);
   const max    = hasCnt ? COUNTERS[a.id] : null;
@@ -1890,6 +2308,7 @@ function bumpEl(id, num, txt) {
 
 function refreshMain() {
   const {base, bonus, earned, total, cnt, visibleCnt} = calc();
+  _g01Render();
   CATS.forEach(c => {
     let sum = 0;
     c.acts.forEach(a => {
@@ -2106,11 +2525,32 @@ function switchUsefulTab(id, btn) {
 
 
 function switchGuideTab(id, btn) {
-  document.querySelectorAll('.guide-panel').forEach(p => p.classList.remove('active'));
-  document.querySelectorAll('.guide-tab').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('#pageGuides .guide-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('#pageGuides .guide-tab').forEach(b => b.classList.remove('active'));
   document.getElementById('gp-' + id).classList.add('active');
   btn.classList.add('active');
+  const subnav = document.getElementById('clubSubnav');
+  const isClubs = id === 'clubs';
+  if (subnav) {
+    subnav.classList.toggle('visible', isClubs);
+    if (isClubs && !subnav.dataset.active) subnav.dataset.active = 'rednecks';
+  }
   hSel();
+}
+
+function switchClubTab(id, btn) {
+  document.querySelectorAll('.club-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.club-tab').forEach(b => b.classList.remove('active'));
+  const panel = document.getElementById('cp-' + id);
+  if (panel) panel.classList.add('active');
+  btn.classList.add('active');
+  const subnav = document.getElementById('clubSubnav');
+  if (subnav) subnav.dataset.active = id;
+  hSel();
+}
+
+function toggleClubQuest(hdr) {
+  hdr.closest('.club-quest').classList.toggle('open');
 }
 
 
@@ -2156,6 +2596,39 @@ function _cntRender(id) {
 
 function refreshAllCounters() {
   Object.keys(COUNTERS).forEach(id => _cntRender(id));
+  _g01Render();
+}
+
+function g01Step(delta, e) {
+  e.stopPropagation();
+  const cur = S.counts['g01'] || 0;
+  const next = Math.max(0, cur + delta);
+  S.counts['g01'] = next;
+  _g01Render();
+  refreshMain();
+  haptic();
+  scheduleSave();
+}
+
+function _g01Render() {
+  const a = ACT_MAP['g01'];
+  if (!a) return;
+  const sessions = S.counts['g01'] || 0;
+  const valEl = document.getElementById('sess-val-g01');
+  const subEl = document.getElementById('sess-sub-g01');
+  const wrap  = document.getElementById('aw-g01');
+  if (valEl) valEl.textContent = sessions;
+  if (subEl) {
+    const earned = sessions * pts(a);
+    subEl.textContent = sessions === 0
+      ? 'Каждые 3 часа онлайна дают +' + pts(a) + ' BP'
+      : 'Сессий: ' + sessions + ' · +' + earned + ' BP';
+    subEl.classList.toggle('sess-sub-active', sessions > 0);
+  }
+  if (wrap) {
+    const minusBtn = wrap.querySelector('.sess-minus');
+    if (minusBtn) minusBtn.disabled = sessions === 0;
+  }
 }
 
 
@@ -2193,6 +2666,14 @@ function tFC(id){const c=document.getElementById(id);if(c){c.classList.toggle('o
   <div class="guide-tabs">
     <button class="guide-tab active" onclick="switchGuideTab('med', this)">Мед помощь</button>
     <button class="guide-tab" onclick="switchGuideTab('skills', this)">Навыки</button>
+    <button class="guide-tab" onclick="switchGuideTab('clubs', this)">Клубы</button>
+  </div>
+  <div class="club-subnav" id="clubSubnav">
+    <button class="club-tab active" data-club="rednecks" onclick="switchClubTab('rednecks', this)">Rednecks</button>
+    <button class="club-tab" data-club="merryweather" onclick="switchClubTab('merryweather', this)">Merryweather</button>
+    <button class="club-tab" data-club="carmeet" onclick="switchClubTab('carmeet', this)">Car Meet</button>
+    <button class="club-tab" data-club="epsilon" onclick="switchClubTab('epsilon', this)">Epsilon</button>
+    <button class="club-tab" data-club="motoclub" onclick="switchClubTab('motoclub', this)">Мотоклуб</button>
   </div>
 
   <div class="guide-panel active" id="gp-med">
@@ -2725,7 +3206,17 @@ function tFC(id){const c=document.getElementById(id);if(c){c.classList.toggle('o
     </div>
     </div>
   </div>
-
+  <div class="guide-panel" id="gp-clubs">
+<div class="club-panel active" id="cp-rednecks" data-club="rednecks"><div class="club-deco"><div class="club-deco-corner tl"></div><div class="club-deco-corner tr"></div><div class="club-deco-corner bl"></div><div class="club-deco-corner br"></div><div class="club-deco-body"><div class="club-intro-head"><span class="club-intro-name">Rednecks</span><span class="club-req">Ур. 10+</span></div><div class="club-intro-desc">Клуб деревенщин - для тех, кто устраивает забастовки, отстаивает права и зарабатывает на различных работах.</div><div class="club-location"><div class="club-location-dot"></div>Деревня Альтруистов</div></div></div><div class="guide-sec-hdr"><span class="guide-sec-name">Бонусы по рангам</span><div class="guide-sec-sep"></div></div><div class="club-ranks"><div class="club-rank-row"><div class="club-rank-title"><span class="club-rank-badge">Ур. 1</span><span class="club-rank-lvl">Вступление</span></div><div class="club-rank-perks"><div class="club-rank-perk"><span class="rp-name">Выбор клуба местом входа</span><span class="rp-desc">Общину можно выбрать точкой появления персонажа при входе.</span></div></div></div><div class="club-rank-row"><div class="club-rank-title"><span class="club-rank-badge">Ур. 2</span><span class="club-rank-lvl">Новичок</span></div><div class="club-rank-perks"><div class="club-rank-perk perk-main"><span class="rp-name">+4% к заработку на работах</span><span class="rp-desc">Дополнительный бонус начисляется при получении зарплаты.</span></div><div class="club-rank-perk"><span class="rp-name">Покупка битых бутылок</span><span class="rp-desc">Бармен продаёт осколки как оружие ближнего боя.</span></div><div class="club-rank-perk"><span class="rp-name">Бесплатные черви раз в день</span><span class="rp-desc">У Завхоза можно взять червей для рыбалки раз в сутки.</span></div></div></div><div class="club-rank-row"><div class="club-rank-title"><span class="club-rank-badge">Ур. 3</span><span class="club-rank-lvl">Член общины</span></div><div class="club-rank-perks"><div class="club-rank-perk perk-main"><span class="rp-name">+8% к заработку <span class="rp-total">(+4% от ранга 2)</span></span><span class="rp-desc">Накопленный бонус от ранга 2 + новый.</span></div><div class="club-rank-perk"><span class="rp-name">Заправка рабочего Т/С</span><span class="rp-desc">Карточка на заправку рабочего транспорта раз в сутки у Завхоза.</span></div><div class="club-rank-perk"><span class="rp-name">Эксклюзивная одежда общины</span><span class="rp-desc">Уникальная одежда у бармена только для членов общины.</span></div></div></div><div class="club-rank-row"><div class="club-rank-title"><span class="club-rank-badge">Ур. 4</span><span class="club-rank-lvl">Старожил</span></div><div class="club-rank-perks"><div class="club-rank-perk perk-main"><span class="rp-name">+12% к заработку <span class="rp-total">(+4% от ранга 3)</span></span><span class="rp-desc">Накопленный бонус от рангов 2-3 + новый.</span></div><div class="club-rank-perk"><span class="rp-name">Радиус металлоискателя +50%</span><span class="rp-desc">Базовый радиус поиска ценностей значительно увеличен.</span></div><div class="club-rank-perk"><span class="rp-name">Бесплатная аренда лодки</span><span class="rp-desc">Карточка на аренду лодки раз в сутки у Завхоза.</span></div></div></div><div class="club-rank-row"><div class="club-rank-title"><span class="club-rank-badge">Ур. 5</span><span class="club-rank-lvl">Деревенщина</span></div><div class="club-rank-perks"><div class="club-rank-perk perk-main"><span class="rp-name">+16% к заработку <span class="rp-total">(итого +4% за каждый ранг)</span></span><span class="rp-desc">Максимальный бонус. +4% к каждому рангу, начиная со 2-го.</span></div><div class="club-rank-perk"><span class="rp-name">Шанс найти семена и таблетки</span><span class="rp-desc">На профильных работах чаще выпадают дополнительные предметы.</span></div><div class="club-rank-perk"><span class="rp-name">Приватный скупщик шкур (+16%)</span><span class="rp-desc">Скупщик в общине платит дороже обычного.</span></div><div class="club-rank-perk"><span class="rp-name">Приватный скупщик рыбы (+15%)</span><span class="rp-desc">Скупщик в общине платит дороже обычного.</span></div><div class="club-rank-perk"><span class="rp-name">Приватный скупщик ценностей (+16%)</span><span class="rp-desc">Скупщик платит дороже за находки с металлоискателя.</span></div></div></div></div><div class="guide-sec-hdr"><span class="guide-sec-name">Задания</span><div class="guide-sec-sep"></div></div><div class="club-quest"><div class="club-quest-hdr" onclick="toggleClubQuest(this)"><span class="club-quest-num">#1</span><span class="club-quest-name">Сам ты коммунист!</span><svg class="club-quest-chev" width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div><div class="club-quest-body"><div class="club-quest-text">Поучаствуйте в <b>пьяной кулачной драке</b> в баре общины. Оба участника должны быть под эффектом алкоголя.<br><br>Попросите члена клуба помочь - передайте алкоголь, выпейте одновременно и подеритесь. <i>Возьмите аптечку для подъёма проигравшего.</i></div></div></div><div class="club-quest"><div class="club-quest-hdr" onclick="toggleClubQuest(this)"><span class="club-quest-num">#2</span><span class="club-quest-name">Капитализм победил</span><svg class="club-quest-chev" width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div><div class="club-quest-body"><div class="club-quest-text">Просите милостыню для общины в городе <b>10 минут</b>.<br><br><b>U - Сценарий - Попрошайничать</b> стоя у края тротуара в центре города.</div></div></div><div class="club-quest"><div class="club-quest-hdr" onclick="toggleClubQuest(this)"><span class="club-quest-num">#3</span><span class="club-quest-name">Субботник</span><svg class="club-quest-chev" width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div><div class="club-quest-body"><div class="club-quest-text">Найдите хлам металлоискателем <b>3 раза</b>. Нужны металлоискатель и лопата.</div></div></div><div class="club-quest"><div class="club-quest-hdr" onclick="toggleClubQuest(this)"><span class="club-quest-num">#4</span><span class="club-quest-name">Рыбный день</span><svg class="club-quest-chev" width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div><div class="club-quest-body"><div class="club-quest-text">Привезите в общину <b>жареную рыбу</b> в нужном количестве. Вид рыбы может меняться.<br><br>Купить готовую на <b>5VITO</b> или поймать и пожарить самому.</div></div></div><div class="club-quest"><div class="club-quest-hdr" onclick="toggleClubQuest(this)"><span class="club-quest-num">#5</span><span class="club-quest-name">Круговорот червей в общине</span><svg class="club-quest-chev" width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div><div class="club-quest-body"><div class="club-quest-text">Привезите Завхозу <b>50 червей</b>.<br><br>Выкопать лопатой на ферме, купить у игроков, или взять бесплатно у Завхоза с ранга 2 и сразу сдать.</div></div></div><div class="club-quest"><div class="club-quest-hdr" onclick="toggleClubQuest(this)"><span class="club-quest-num">#6</span><span class="club-quest-name">Что плохо лежит</span><svg class="club-quest-chev" width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div><div class="club-quest-body"><div class="club-quest-text">Соберите урожай на ферме: <b>апельсины</b> или <b>капуста</b>.<br><br><i>Если идёт посев - отмените задание и вернитесь позже.</i></div></div></div><div class="club-quest"><div class="club-quest-hdr" onclick="toggleClubQuest(this)"><span class="club-quest-num">#7</span><span class="club-quest-name">Преломить хлеб</span><svg class="club-quest-chev" width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div><div class="club-quest-body"><div class="club-quest-text">Самостоятельно приготовьте и привезите указанное блюдо. <b>Еда из магазина не считается.</b><br><br>Ингредиенты в магазине <b>24/7</b>, готовить на любой плите из мебельного магазина.</div></div></div><div class="club-quest"><div class="club-quest-hdr" onclick="toggleClubQuest(this)"><span class="club-quest-num">#8</span><span class="club-quest-name">Постоять за своих</span><svg class="club-quest-chev" width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div><div class="club-quest-body"><div class="club-quest-text">Поработайте инкассатором с членом общины - <b>5 совместных рейсов</b>.<br><br>Вдвоём начните рабочий день у NPC и выполните 5 рейсов на одной машине.</div></div></div><div class="club-picket"><div class="club-picket-title">Ежедневный пикет</div><div class="club-picket-text">Соберитесь с членами общины - <b>минимум 10 человек</b> - с <b>знаками протеста</b> (продаются у бармена) перед <b>Мэрией Лос-Сантос</b> или <b>Мэрией Палето-Бэй</b>.<br><br>Ходите возле здания до уведомления об окончании вашей части. Лимит не зависит от VIP.</div><div class="club-picket-max">Максимум 60 репутации в день</div></div><div class="guide-sec-hdr"><span class="guide-sec-name">Достижения</span><div class="guide-sec-sep"></div></div><div class="club-ach"><div class="club-ach-name">«Дом у дороги»</div><div class="club-ach-desc">Победите в пьяной драке в общине против игрока с активным заданием на неё.</div><span class="club-ach-reward">+10 BP</span></div><div class="club-ach"><div class="club-ach-name">«Из-за этих гадов мы без работы сидим!»</div><div class="club-ach-desc">Достигните максимального ранга в клубе Rednecks.</div><span class="club-ach-reward">+30 BP</span></div><div class="club-ach"><div class="club-ach-name">«Инвестировал в говно»</div><div class="club-ach-desc">Потратьте <b>1 000 000$</b> на покупку навоза у NPC.</div><span class="club-ach-reward">Маска говна</span></div></div>
+    
+    <div class="club-panel" id="cp-merryweather" data-club="merryweather"><div class="club-deco"><div class="club-deco-corner tl"></div><div class="club-deco-corner tr"></div><div class="club-deco-corner bl"></div><div class="club-deco-corner br"></div><div class="club-deco-body"><div class="club-intro-head"><span class="club-intro-name">Merryweather</span><span class="club-req">Ур. 10+</span></div><div class="club-intro-desc">Клуб наёмников. Для любителей перестрелок и PVP. Навыки полезны для крайм и гос. фракций.</div><div class="club-location"><div class="club-location-dot"></div>База меняется каждый час - грузовик, субмарина или конвертоплан</div></div></div><div class="guide-sec-hdr"><span class="guide-sec-name">Бонусы по рангам</span><div class="guide-sec-sep"></div></div><div class="club-ranks"><div class="club-rank-row"><div class="club-rank-title"><span class="club-rank-badge">Ур. 1</span><span class="club-rank-lvl">Боец</span></div><div class="club-rank-perks"><div class="club-rank-perk"><span class="rp-name">Выбор клуба местом входа</span><span class="rp-desc">Активная база Merryweather доступна как точка спауна.</span></div></div></div><div class="club-rank-row"><div class="club-rank-title"><span class="club-rank-badge">Ур. 2</span><span class="club-rank-lvl">Оперативник</span></div><div class="club-rank-perks"><div class="club-rank-perk perk-main"><span class="rp-name">Износ оружия -75% при перезарядке</span><span class="rp-desc">25% шанс не потерять прочность при перезарядке.</span></div><div class="club-rank-perk"><span class="rp-name">Защита от авторозыска</span><span class="rp-desc">Раз в 3 часа: защита от звёзд розыска за крим. действия без маски.</span></div></div></div><div class="club-rank-row"><div class="club-rank-title"><span class="club-rank-badge">Ур. 3</span><span class="club-rank-lvl">Специалист</span></div><div class="club-rank-perks"><div class="club-rank-perk perk-main"><span class="rp-name">Покупка случайного оружия из арсенала</span><span class="rp-desc">У куратора на базе - редкие экземпляры из арсенала Merryweather.</span></div><div class="club-rank-perk"><span class="rp-name">Освобождение из наручников</span><span class="rp-desc">Самостоятельно выбраться из стяжек или наручников без лишнего внимания.</span></div><div class="club-rank-perk"><span class="rp-name">Эксклюзивная форма Merryweather</span><span class="rp-desc">Уникальная одежда у куратора только для сотрудников компании.</span></div></div></div><div class="club-rank-row"><div class="club-rank-title"><span class="club-rank-badge">Ур. 4</span><span class="club-rank-lvl">Ветеран</span></div><div class="club-rank-perks"><div class="club-rank-perk perk-main"><span class="rp-name">Устойчивость к тазеру</span><span class="rp-desc">Быстрее справляетесь с оглушением от электрошока.</span></div><div class="club-rank-perk"><span class="rp-name">Бонус к фракционным мероприятиям</span><span class="rp-desc">Участие в ограблениях поездов и аирдропах увеличивает личную и фракционную награду.</span></div><div class="club-rank-perk"><span class="rp-name">Шанс сохранить оружие при смерти</span><span class="rp-desc">Мёртвая хватка солдата повышает шанс не потерять оружие.</span></div></div></div><div class="club-rank-row"><div class="club-rank-title"><span class="club-rank-badge">Ур. 5</span><span class="club-rank-lvl">Элита</span></div><div class="club-rank-perks"><div class="club-rank-perk perk-main"><span class="rp-name">Появление с полным HP раз в 2 часа</span><span class="rp-desc">Ресурсы Merryweather покрывают VIP-лечение в больницах Сан-Андреас.</span></div><div class="club-rank-perk"><span class="rp-name">Срок в КПЗ -25%, в тюрьме -20%</span><span class="rp-desc">Связи в правительстве сокращают время заключения.</span></div><div class="club-rank-perk"><span class="rp-name">Доставка патронов в любую точку</span><span class="rp-desc">Срочная доставка боеприпасов выбранного калибра за отдельную плату.</span></div></div></div></div><div class="guide-sec-hdr"><span class="guide-sec-name">Общие задания</span><div class="guide-sec-sep"></div></div><div class="club-quest"><div class="club-quest-hdr" onclick="toggleClubQuest(this)"><span class="club-quest-num">#1</span><span class="club-quest-name">В яблочко</span><span class="club-quest-label">Общий</span><svg class="club-quest-chev" width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div><div class="club-quest-body"><div class="club-quest-text">Успешно потренируйтесь в <b>тире</b> на базе клуба.</div></div></div><div class="club-quest"><div class="club-quest-hdr" onclick="toggleClubQuest(this)"><span class="club-quest-num">#2</span><span class="club-quest-name">Человек из стали</span><span class="club-quest-label">Общий</span><svg class="club-quest-chev" width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div><div class="club-quest-body"><div class="club-quest-text">Сделайте <b>5 успешных подходов</b> в тренажёрном зале.</div></div></div><div class="club-quest"><div class="club-quest-hdr" onclick="toggleClubQuest(this)"><span class="club-quest-num">#3</span><span class="club-quest-name">На страже малого бизнеса</span><span class="club-quest-label">Общий</span><svg class="club-quest-chev" width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div><div class="club-quest-body"><div class="club-quest-text">Стойте в стойке охранника рядом с указанным бизнесом <b>10 минут</b>. За спиной - оружие.<br><br><i>Оптимально - помповый обрез: меньше внимания со стороны гос. структур.</i></div></div></div><div class="club-quest"><div class="club-quest-hdr" onclick="toggleClubQuest(this)"><span class="club-quest-num">#4</span><span class="club-quest-name">Ценный лом</span><span class="club-quest-label">Общий</span><svg class="club-quest-chev" width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div><div class="club-quest-body"><div class="club-quest-text">Принесите на базу <b>3 оружия с прочностью 0%</b>.<br><br><i>Быстрый способ: зарядите оружие и вытащите патроны в инвентаре.</i></div></div></div><div class="guide-sec-hdr"><span class="guide-sec-name">Задания в грузовике</span><div class="guide-sec-sep"></div></div><div class="club-quest"><div class="club-quest-hdr" onclick="toggleClubQuest(this)"><span class="club-quest-num">#1</span><span class="club-quest-name">Бесценный груз</span><span class="club-quest-label">Грузовик</span><svg class="club-quest-chev" width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div><div class="club-quest-body"><div class="club-quest-text">Доедьте до пункта назначения на пикапе клуба <b>без единого столкновения</b>.</div></div></div><div class="club-quest"><div class="club-quest-hdr" onclick="toggleClubQuest(this)"><span class="club-quest-num">#2</span><span class="club-quest-name">Довезти без вопросов</span><span class="club-quest-label">Грузовик</span><svg class="club-quest-chev" width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div><div class="club-quest-body"><div class="club-quest-text">Доставьте грузовик из порта до чёрного рынка <b>за 5 минут</b>.<br><br><i>Времени мало - избегайте аварий.</i></div></div></div><div class="guide-sec-hdr"><span class="guide-sec-name">Задания в субмарине</span><div class="guide-sec-sep"></div></div><div class="club-quest"><div class="club-quest-hdr" onclick="toggleClubQuest(this)"><span class="club-quest-num">#1</span><span class="club-quest-name">Подводный сапёр</span><span class="club-quest-label">Субмарина</span><svg class="club-quest-chev" width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div><div class="club-quest-body"><div class="club-quest-text">Обезвредьте мину - подплывите снизу и поймайте <b>кнопку E</b>.</div></div></div><div class="club-quest"><div class="club-quest-hdr" onclick="toggleClubQuest(this)"><span class="club-quest-num">#2</span><span class="club-quest-name">Провизия субмарины</span><span class="club-quest-label">Субмарина</span><svg class="club-quest-chev" width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div><div class="club-quest-body"><div class="club-quest-text">Поймайте любую рыбу, <b>стоя на подводной лодке</b> клуба.</div></div></div><div class="guide-sec-hdr"><span class="guide-sec-name">Задания в конвертоплане</span><div class="guide-sec-sep"></div></div><div class="club-quest"><div class="club-quest-hdr" onclick="toggleClubQuest(this)"><span class="club-quest-num">#1</span><span class="club-quest-name">Аэрокурьер</span><span class="club-quest-label">Конвертоплан</span><svg class="club-quest-chev" width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div><div class="club-quest-body"><div class="club-quest-text">Сядьте в конвертоплан и приземлитесь в указанной точке, <b>не снижаясь ниже 100 м</b>.<br><br><i>G в полёте - ускорение.</i></div></div></div><div class="club-quest"><div class="club-quest-hdr" onclick="toggleClubQuest(this)"><span class="club-quest-num">#2</span><span class="club-quest-name">Контроль воздуха</span><span class="club-quest-label">Конвертоплан</span><svg class="club-quest-chev" width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div><div class="club-quest-body"><div class="club-quest-text">Зайдите на метку позади NPC и <b>2 минуты</b> сбивайте НЛО в симуляторе.</div></div></div><div class="club-picket"><div class="club-picket-title">Аирдроп</div><div class="club-picket-text">Доступен для крайм фракций, LSPD, LSSD, FIB и Army.<br><br>Для зачёта <b>участия</b> - находитесь в зоне круга с <b>оружием в руках</b> вне транспорта несколько секунд.</div><div class="club-picket-max">Участие: 20 реп. × 2 в день &nbsp;|&nbsp; Победа: 60 реп. × 1 в день</div></div><div class="guide-sec-hdr"><span class="guide-sec-name">Достижения</span><div class="guide-sec-sep"></div></div><div class="club-ach"><div class="club-ach-name">«Небеса разверзлись»</div><div class="club-ach-desc">Победите в 50 аирдропах в составе фракции, будучи сотрудником Merryweather.</div><span class="club-ach-reward">Неизвестно</span></div><div class="club-ach"><div class="club-ach-name">«Боевое крещение»</div><div class="club-ach-desc">Достигните максимального ранга в клубе Merryweather.</div><span class="club-ach-reward">+30 BP</span></div></div>
+    
+    <div class="club-panel" id="cp-carmeet" data-club="carmeet"><div class="club-deco"><div class="club-deco-corner tl"></div><div class="club-deco-corner tr"></div><div class="club-deco-corner bl"></div><div class="club-deco-corner br"></div><div class="club-deco-body"><div class="club-intro-head"><span class="club-intro-name">Car Meet</span><span class="club-req">Ур. 10+</span></div><div class="club-intro-desc">Клуб для любителей авто, дрифта и аукционов. Тюнинг, гонки, скорость.</div><div class="club-location"><div class="club-location-dot"></div>Автоклуб - промзона города</div></div></div><div class="guide-sec-hdr"><span class="guide-sec-name">Бонусы по рангам</span><div class="guide-sec-sep"></div></div><div class="club-ranks"><div class="club-rank-row"><div class="club-rank-title"><span class="club-rank-badge">Ур. 1</span><span class="club-rank-lvl">Гость</span></div><div class="club-rank-perks"><div class="club-rank-perk"><span class="rp-name">Выбор клуба местом входа</span><span class="rp-desc">Автоклуб можно выбрать точкой спауна персонажа.</span></div><div class="club-rank-perk"><span class="rp-name">Диностенд</span><span class="rp-desc">Доступен для замера скорости транспорта прямо в автоклубе.</span></div></div></div><div class="club-rank-row"><div class="club-rank-title"><span class="club-rank-badge">Ур. 2</span><span class="club-rank-lvl">Участник</span></div><div class="club-rank-perks"><div class="club-rank-perk perk-main"><span class="rp-name">Максимальный навык управления авто</span><span class="rp-desc">Проще справляться с заносами и манёврировать в воздухе.</span></div><div class="club-rank-perk"><span class="rp-name">Автоматические ремни</span><span class="rp-desc">Пристёгиваются при посадке в автомобиль автоматически.</span></div></div></div><div class="club-rank-row"><div class="club-rank-title"><span class="club-rank-badge">Ур. 3</span><span class="club-rank-lvl">Гонщик</span></div><div class="club-rank-perks"><div class="club-rank-perk perk-main"><span class="rp-name">Эксклюзивная одежда автоклуба</span><span class="rp-desc">Уникальная одежда у организатора только для членов клуба.</span></div><div class="club-rank-perk"><span class="rp-name">Настройка стабилизации</span><span class="rp-desc">При включённом переключателе - регулировка степени потери сцепления.</span></div></div></div><div class="club-rank-row"><div class="club-rank-title"><span class="club-rank-badge">Ур. 4</span><span class="club-rank-lvl">Ас</span></div><div class="club-rank-perks"><div class="club-rank-perk perk-main"><span class="rp-name">Скидка на эвакуацию 50%</span><span class="rp-desc">Эвакуация на парковку, в гараж или штрафстоянку вдвое дешевле.</span></div><div class="club-rank-perk"><span class="rp-name">Доставка личного авто раз в час</span><span class="rp-desc">Клуб доставит машину к ближайшей дороге по цене эвакуации домой.</span></div></div></div><div class="club-rank-row"><div class="club-rank-title"><span class="club-rank-badge">Ур. 5</span><span class="club-rank-lvl">Легенда трассы</span></div><div class="club-rank-perks"><div class="club-rank-perk perk-main"><span class="rp-name">Скидка 20% в автомастерской Палето</span><span class="rp-desc">Установка и снятие модификаций дешевле.</span></div><div class="club-rank-perk"><span class="rp-name">Скидка 50% на комиссию аукциона</span><span class="rp-desc">Торги на аукционах авто и контейнеров вдвое дешевле.</span></div><div class="club-rank-perk"><span class="rp-name">Доступ к автосалону дрифт-авто</span><span class="rp-desc">Специализированный салон с автомобилями для дрифта.</span></div></div></div></div><div class="guide-sec-hdr"><span class="guide-sec-name">Задания</span><div class="guide-sec-sep"></div></div><div class="club-quest"><div class="club-quest-hdr" onclick="toggleClubQuest(this)"><span class="club-quest-num">#1</span><span class="club-quest-name">Бросить вызов</span><svg class="club-quest-chev" width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div><div class="club-quest-body"><div class="club-quest-text">Финишируйте в гонке автоклуба на <b>4 участника</b> длиной более <b>10 км</b>.<br><br>Гонка создаётся через телефон - зелёная иконка с колесом. Расстояние указано справа.</div></div></div><div class="club-quest"><div class="club-quest-hdr" onclick="toggleClubQuest(this)"><span class="club-quest-num">#2</span><span class="club-quest-name">По прямой скучно</span><svg class="club-quest-chev" width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div><div class="club-quest-body"><div class="club-quest-text">Наберите суммарно <b>100 000 очков дрифта</b> с включённым счётчиком на полигоне автоклуба.<br><br><i>Счётчик привязывается в F10 - Шестерёнка - Управление.</i></div></div></div><div class="club-quest"><div class="club-quest-hdr" onclick="toggleClubQuest(this)"><span class="club-quest-num">#3</span><span class="club-quest-name">Очумелые ручки</span><svg class="club-quest-chev" width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div><div class="club-quest-body"><div class="club-quest-text">Купите ремкомплект в указанном магазине <b>24/7</b> и привезите его на базу.</div></div></div><div class="club-quest"><div class="club-quest-hdr" onclick="toggleClubQuest(this)"><span class="club-quest-num">#4</span><span class="club-quest-name">Чистый путь</span><svg class="club-quest-chev" width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div><div class="club-quest-body"><div class="club-quest-text">Пройдите в EMS <b>чистый тест</b> на наркозависимость и алкогольное опьянение.<br><br><i>Не должно быть ни зависимости, ни опьянения в момент теста.</i></div></div></div><div class="club-quest"><div class="club-quest-hdr" onclick="toggleClubQuest(this)"><span class="club-quest-num">#5</span><span class="club-quest-name">Гонщик-испытатель</span><svg class="club-quest-chev" width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div><div class="club-quest-body"><div class="club-quest-text">Возьмите <b>тестовый автомобиль</b> и финишируйте в любой гонке.</div></div></div><div class="club-quest"><div class="club-quest-hdr" onclick="toggleClubQuest(this)"><span class="club-quest-num">#6</span><span class="club-quest-name">Начинающий гонщик</span><svg class="club-quest-chev" width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div><div class="club-quest-body"><div class="club-quest-text">Финишируйте в гонке на <b>радиоуправляемых машинках</b> в Maze Bank Arena.</div></div></div><div class="club-quest"><div class="club-quest-hdr" onclick="toggleClubQuest(this)"><span class="club-quest-num">#7</span><span class="club-quest-name">А вот на чём я гоняю</span><svg class="club-quest-chev" width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div><div class="club-quest-body"><div class="club-quest-text">Сделайте <b>селфи на фоне</b> указанной достопримечательности.<br><br><i>Координаты всех точек есть в дискорде сервера.</i></div></div></div><div class="club-picket"><div class="club-picket-title">Ежедневные гонки</div><div class="club-picket-text">Каждый день - до <b>10 гонок на 4 участника</b> для получения репутации независимо от активного задания.<br><br><b>1 место</b> - 12 реп. &nbsp;·&nbsp; <b>2 место</b> - 9 реп. &nbsp;·&nbsp; <b>3 место</b> - 6 реп. &nbsp;·&nbsp; <b>4 место</b> - 3 реп.</div><div class="club-picket-max">VIP не влияет на количество репутации</div></div><div class="guide-sec-hdr"><span class="guide-sec-name">Достижения</span><div class="guide-sec-sep"></div></div><div class="club-ach"><div class="club-ach-name">«Глотай пыль»</div><div class="club-ach-desc">Займите 1 место в 100 гонках за репутацию в Car Meet.</div><span class="club-ach-reward">+10 BP</span></div><div class="club-ach"><div class="club-ach-name">«Газ в пол»</div><div class="club-ach-desc">Достигните максимального ранга в Car Meet.</div><span class="club-ach-reward">+30 BP</span></div></div>
+    
+    <div class="club-panel" id="cp-epsilon" data-club="epsilon"><div class="club-deco"><div class="club-deco-corner tl"></div><div class="club-deco-corner tr"></div><div class="club-deco-corner bl"></div><div class="club-deco-corner br"></div><div class="club-deco-body"><div class="club-intro-head"><span class="club-intro-name">Epsilon</span><span class="club-req">Особое вступление</span></div><div class="club-intro-desc">Тайный культ для состоятельных игроков. Лидеры фракций, владельцы бизнесов, обеспеченные граждане.</div><div class="club-location"><div class="club-location-dot"></div>Местоположение засекречено</div></div></div><div class="club-picket" style="margin-bottom:8px"><div class="club-picket-title">Условия вступления</div><div class="club-picket-text">Закройте достижение <b>«Доброжелатель»</b> (пожертвование в банке на 1 000 000$) и убедитесь, что у вашего персонажа <b>нет рыжих волос</b>.</div></div><div class="guide-sec-hdr"><span class="guide-sec-name">Заповеди культа</span><div class="guide-sec-sep"></div></div><div class="club-quest"><div class="club-quest-hdr" onclick="toggleClubQuest(this)"><span class="club-quest-num">#1</span><span class="club-quest-name">1-я заповедь</span><svg class="club-quest-chev" width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div><div class="club-quest-body"><div class="club-quest-text">Развесьте <b>10 календарей в гетто</b> по указанным меткам на карте.</div></div></div><div class="club-quest"><div class="club-quest-hdr" onclick="toggleClubQuest(this)"><span class="club-quest-num">#2</span><span class="club-quest-name">2-я заповедь</span><svg class="club-quest-chev" width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div><div class="club-quest-body"><div class="club-quest-text">Нанесите несколько ударов <b>розовому динозавру</b>. Местоположение смотрите в дискорде.</div></div></div><div class="club-quest"><div class="club-quest-hdr" onclick="toggleClubQuest(this)"><span class="club-quest-num">#3</span><span class="club-quest-name">3-я заповедь</span><svg class="club-quest-chev" width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div><div class="club-quest-body"><div class="club-quest-text">Ходите по казино <b>10 минут</b> с анимацией <b>«Показывать лайк»</b>.</div></div></div><div class="club-quest"><div class="club-quest-hdr" onclick="toggleClubQuest(this)"><span class="club-quest-num">#4</span><span class="club-quest-name">4-я заповедь</span><svg class="club-quest-chev" width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div><div class="club-quest-body"><div class="club-quest-text">У дерева (метка на карте) используйте анимацию <b>«Медитация»</b> в течение <b>10 минут</b>.</div></div></div><div class="club-quest"><div class="club-quest-hdr" onclick="toggleClubQuest(this)"><span class="club-quest-num">#5</span><span class="club-quest-name">5-я заповедь</span><svg class="club-quest-chev" width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div><div class="club-quest-body"><div class="club-quest-text">Наденьте мешок на персонажа с <b>рыжим цветом волос</b> (через меню G).</div></div></div><div class="club-quest"><div class="club-quest-hdr" onclick="toggleClubQuest(this)"><span class="club-quest-num">#6</span><span class="club-quest-name">6-я заповедь</span><svg class="club-quest-chev" width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div><div class="club-quest-body"><div class="club-quest-text">Перед мэрией используйте анимацию <b>«Дёргать рукой»</b> и простойте там <b>5 минут</b>.<br><br><i>Теоретически могут задержать госструктуры. У девушек квест закрывается моментально после взятия.</i></div></div></div><div class="club-quest"><div class="club-quest-hdr" onclick="toggleClubQuest(this)"><span class="club-quest-num">#7</span><span class="club-quest-name">7-я заповедь</span><svg class="club-quest-chev" width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div><div class="club-quest-body"><div class="club-quest-text">Поцелуйте <b>9 разных девушек</b> (если вы парень) или <b>6 разных парней</b> (если вы девушка).<br><br><i>В июле для девушек требуется 35 парней.</i></div></div></div><div class="club-quest"><div class="club-quest-hdr" onclick="toggleClubQuest(this)"><span class="club-quest-num">#8</span><span class="club-quest-name">8-я заповедь</span><svg class="club-quest-chev" width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div><div class="club-quest-body"><div class="club-quest-text">Засвидетельствуйте <b>затонувшее НЛО</b> в океане у Палето-Бэй. Засчитывается только в одном конкретном месте над тарелкой.<br><br><i>Лайфхак: в EMS поставьте веснушки вариант 20 - квест закрывается сразу после взятия.</i></div></div></div><div class="club-quest"><div class="club-quest-hdr" onclick="toggleClubQuest(this)"><span class="club-quest-num">#9</span><span class="club-quest-name">9-я заповедь</span><svg class="club-quest-chev" width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div><div class="club-quest-body"><div class="club-quest-text">Зажмите кнопку микрофона рядом с деревом (метка на карте).</div></div></div><div class="club-quest"><div class="club-quest-hdr" onclick="toggleClubQuest(this)"><span class="club-quest-num">#10</span><span class="club-quest-name">10-я заповедь</span><svg class="club-quest-chev" width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div><div class="club-quest-body"><div class="club-quest-text">Прыгните с возвышенности так, чтобы разбиться. Начнётся катсцена - вас воскресят.</div></div></div><div class="club-quest"><div class="club-quest-hdr" onclick="toggleClubQuest(this)"><span class="club-quest-num">#11</span><span class="club-quest-name">11-я заповедь - Пожертвование</span><svg class="club-quest-chev" width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div><div class="club-quest-body"><div class="club-quest-text">Внесите пожертвование фонду Epsilon в банке (минимум <b>1 000$</b>). Выдаётся после каждого задания - КД нет.<br><br><b>Таблица эффективности:</b><br>1 000$ - 10 реп. &nbsp;|&nbsp; 5 000$ - 14 реп. &nbsp;|&nbsp; 10 000$ - 27 реп.<br>20 000$ - 49 реп. &nbsp;|&nbsp; 50 000$ - 88 реп. &nbsp;|&nbsp; 83 000$ - 100 реп.<br><br><i>Минимум для прокачки: 1 000$ = 10 реп. Максимум: 83 000$ = 100 реп.</i></div></div></div><div class="club-quest"><div class="club-quest-hdr" onclick="toggleClubQuest(this)"><span class="club-quest-num">#12</span><span class="club-quest-name">12-я заповедь</span><svg class="club-quest-chev" width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div><div class="club-quest-body"><div class="club-quest-text">Просто так дают репутацию - ничего не надо делать.</div></div></div><div class="club-picket"><div class="club-picket-title">Секреты программы</div><div class="club-picket-text"><b>1.</b> Веснушки вариант 20 (у хирурга в EMS) - 8-я заповедь закрывается автоматически.<br><br><b>2.</b> В одежде культа Epsilon (хватит одного элемента) - дополнительная репутация за задания.<br><br><b>3.</b> Время до потери сознания при ноке сокращается с 60 до 40 секунд для членов культа.<br><br><b>4.</b> У членов культа есть тайное приветствие.</div></div><div class="guide-sec-hdr"><span class="guide-sec-name">Возможности программы</span><div class="guide-sec-sep"></div></div><div class="eps-shop"><div class="club-rank-row"><div class="club-rank-title"><span class="club-rank-badge">Все</span><span class="club-rank-lvl">Для всех участников</span></div><div class="club-rank-perks"><div class="club-rank-perk"><span class="rp-name">Магазин эксклюзивной одежды</span><span class="rp-desc">Доступен всем членам культа</span></div><div class="club-rank-perk"><span class="rp-name">Помилование</span><span class="rp-desc">Выпустить любого заключённого из тюрьмы - 400 реп.</span></div><div class="club-rank-perk"><span class="rp-name">Снятие розыска</span><span class="rp-desc">Снять все звёзды с любого игрока - 200 реп.</span></div><div class="club-rank-perk"><span class="rp-name">Лицензия на оружие или охоту</span><span class="rp-desc">по 500 реп.</span></div><div class="club-rank-perk"><span class="rp-name">Лицензия на бизнес или адвоката</span><span class="rp-desc">по 750 реп.</span></div><div class="club-rank-perk"><span class="rp-name">Закрытие лизинга</span><span class="rp-desc">Нужна полная сумма лизинга - 1000 реп.</span></div></div></div><div class="club-rank-row"><div class="club-rank-title"><span class="club-rank-badge">Бизнес</span><span class="club-rank-lvl">Для владельцев бизнесов</span></div><div class="club-rank-perks"><div class="club-rank-perk"><span class="rp-name">Отключение налога на 24 ч</span><span class="rp-desc">500 реп.</span></div><div class="club-rank-perk"><span class="rp-name">Отключение траты материалов на 24 ч</span><span class="rp-desc">250 реп.</span></div></div></div><div class="club-rank-row"><div class="club-rank-title"><span class="club-rank-badge">Фракция</span><span class="club-rank-lvl">Для лидеров фракций</span></div><div class="club-rank-perks"><div class="club-rank-perk"><span class="rp-name">Спавн участников на титуле 7 дней</span><span class="rp-desc">500 реп.</span></div><div class="club-rank-perk"><span class="rp-name">Payday и оплата +20% всем на 7 дней</span><span class="rp-desc">2500 реп.</span></div><div class="club-rank-perk"><span class="rp-name">Выдать payday прямо сейчас (гос)</span><span class="rp-desc">500 реп.</span></div><div class="club-rank-perk"><span class="rp-name">Авторозыск -1 звезда для всей фракции</span><span class="rp-desc">1000 реп.</span></div><div class="club-rank-perk"><span class="rp-name">Материалы и оружие на мероприятиях +20% на 7 дней</span><span class="rp-desc">1000 реп.</span></div><div class="club-rank-perk"><span class="rp-name">FT тюнинг транспорта фракции</span><span class="rp-desc">500 реп.</span></div><div class="club-rank-perk"><span class="rp-name">Покупка материалов на склад по курсу 1:1</span><span class="rp-desc">—</span></div></div></div><div class="club-rank-row"><div class="club-rank-title"><span class="club-rank-badge">Орг.</span><span class="club-rank-lvl">Для лидеров организаций</span></div><div class="club-rank-perks"><div class="club-rank-perk"><span class="rp-name">Выплаты за контракты +15% на 7 дней</span><span class="rp-desc">1000 реп.</span></div><div class="club-rank-perk"><span class="rp-name">Репутация семьи за контракты</span><span class="rp-desc">750 реп.</span></div><div class="club-rank-perk"><span class="rp-name">Репутация за войну семей +20% на 7 дней</span><span class="rp-desc">750 реп.</span></div><div class="club-rank-perk"><span class="rp-name">Материалы на склад организации по курсу 1:1</span><span class="rp-desc">—</span></div></div></div></div><div class="guide-sec-hdr"><span class="guide-sec-name">Достижения</span><div class="guide-sec-sep"></div></div><div class="club-ach"><div class="club-ach-name">«Постижение непостижимого»</div><div class="club-ach-desc">Обретите Киффлом, отказавшись от всех обязательств программы у Криса Формажа.</div><span class="club-ach-reward">Сет одежды послушника + статуя</span></div></div>
+    
+    <div class="club-panel" id="cp-motoclub" data-club="motoclub"><div class="club-deco"><div class="club-deco-corner tl"></div><div class="club-deco-corner tr"></div><div class="club-deco-corner bl"></div><div class="club-deco-corner br"></div><div class="club-deco-body"><div class="club-intro-head"><span class="club-intro-name">Мотоклуб</span><span class="club-req">Ур. 10+</span></div><div class="club-intro-desc">Братство байкеров. Мотопробеги, совместные активности и адреналин трассы. Членство полностью анонимное.</div><div class="club-location"><div class="club-location-dot"></div>Расположение зависит от выбранного клуба (Lost MC, Angels of Death, Bandidos)</div></div></div><div class="club-picket" style="margin-bottom:8px"><div class="club-picket-title">Lost MC / Angels of Death / Bandidos</div><div class="club-picket-text">Клуб объединяет игроков независимо от фракции. Другие участники не видят ваше имя. Основные активности: задания, мотопробеги и клубные конфликты.</div></div><div class="guide-sec-hdr"><span class="guide-sec-name">Бонусы по рангам</span><div class="guide-sec-sep"></div></div><div class="club-ranks"><div class="club-rank-row"><div class="club-rank-title"><span class="club-rank-badge">Ур. 1</span><span class="club-rank-lvl">Кандидат</span></div><div class="club-rank-perks"><div class="club-rank-perk"><span class="rp-name">Символика клуба на байкерских вещах</span><span class="rp-desc">Куртки и жилетки с отметкой в магазинах одежды получат атрибутику клуба на спине.</span></div><div class="club-rank-perk"><span class="rp-name">Фальшфейеры у бармена</span><span class="rp-desc">Красный огонь и дым для привлечения внимания.</span></div></div></div><div class="club-rank-row"><div class="club-rank-title"><span class="club-rank-badge">Ур. 2</span><span class="club-rank-lvl">Перспектива</span></div><div class="club-rank-perks"><div class="club-rank-perk perk-main"><span class="rp-name">Выбор клуба местом входа</span><span class="rp-desc">Бар мотоклуба можно выбрать точкой спауна персонажа.</span></div><div class="club-rank-perk"><span class="rp-name">Бесплатная заправка байка раз в день</span><span class="rp-desc">Раз в сутки - бесплатная заправка личного мотоцикла на колонке у бара.</span></div><div class="club-rank-perk"><span class="rp-name">Кастеты у бармена</span><span class="rp-desc">Металлический кастет для эффективной самообороны в клубных конфликтах.</span></div></div></div><div class="club-rank-row"><div class="club-rank-title"><span class="club-rank-badge">Ур. 3</span><span class="club-rank-lvl">Брат</span></div><div class="club-rank-perks"><div class="club-rank-perk perk-main"><span class="rp-name">Максимальный навык управления мото</span><span class="rp-desc">Увереннее на байке: дольше на заднем колесе, лучше в воздухе.</span></div><div class="club-rank-perk"><span class="rp-name">Мотоциклы клуба напрокат</span><span class="rp-desc">На стоянке у клуба - бесплатная аренда. Исчезает если отойти более 5 минут.</span></div><div class="club-rank-perk"><span class="rp-name">Эксклюзивные байкерские вещи</span><span class="rp-desc">Уникальная одежда у бармена только для членов клуба.</span></div></div></div><div class="club-rank-row"><div class="club-rank-title"><span class="club-rank-badge">Ур. 4</span><span class="club-rank-lvl">Старший брат</span></div><div class="club-rank-perks"><div class="club-rank-perk perk-main"><span class="rp-name">Доставка мотоцикла раз в час</span><span class="rp-desc">Клуб доставит байк к ближайшей дороге по цене эвакуации домой.</span></div><div class="club-rank-perk"><span class="rp-name">Стрельба с обрезов на ходу</span><span class="rp-desc">Обычный и помповый обрез доступны во время управления мотоциклом.</span></div><div class="club-rank-perk"><span class="rp-name">Урон при стрельбе с мото +40%</span><span class="rp-desc">Штраф урона при езде снижается с 90% до 50%.</span></div></div></div></div><div class="guide-sec-hdr"><span class="guide-sec-name">Задания</span><div class="guide-sec-sep"></div></div><div class="club-quest"><div class="club-quest-hdr" onclick="toggleClubQuest(this)"><span class="club-quest-num">#1</span><span class="club-quest-name">Опасные гонки</span><svg class="club-quest-chev" width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div><div class="club-quest-body"><div class="club-quest-text">Финишируйте в <b>опасной гонке</b> на арене Maze Bank Arena. Репутация начисляется только при финише.</div></div></div><div class="club-quest"><div class="club-quest-hdr" onclick="toggleClubQuest(this)"><span class="club-quest-num">#2</span><span class="club-quest-name">Редкие запчасти</span><svg class="club-quest-chev" width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div><div class="club-quest-body"><div class="club-quest-text">Привезите <b>редкие детали для мотоциклов</b> из LS Customs в бар клуба.</div></div></div><div class="club-quest"><div class="club-quest-hdr" onclick="toggleClubQuest(this)"><span class="club-quest-num">#3</span><span class="club-quest-name">Топливо для души</span><svg class="club-quest-chev" width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div><div class="club-quest-body"><div class="club-quest-text">Купите <b>5 бутылок</b> указанного алкоголя в одном из ночных клубов и привезите в бар.</div></div></div><div class="club-quest"><div class="club-quest-hdr" onclick="toggleClubQuest(this)"><span class="club-quest-num">#4</span><span class="club-quest-name">Топливный кризис</span><svg class="club-quest-chev" width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div><div class="club-quest-body"><div class="club-quest-text">Заберите топливо в отмеченной точке и доставьте к <b>бензоколонке клуба</b>.</div></div></div><div class="club-quest"><div class="club-quest-hdr" onclick="toggleClubQuest(this)"><span class="club-quest-num">#5</span><span class="club-quest-name">Покорение вершин</span><svg class="club-quest-chev" width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div><div class="club-quest-body"><div class="club-quest-text">Соберите группу из <b>5 членов байкерского клуба</b> и установите флаг клуба в отмеченной точке.</div></div></div><div class="club-quest"><div class="club-quest-hdr" onclick="toggleClubQuest(this)"><span class="club-quest-num">#6</span><span class="club-quest-name">Клубная атрибутика</span><svg class="club-quest-chev" width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div><div class="club-quest-body"><div class="club-quest-text">Заберите <b>нашивки клуба</b> из магазина одежды и привезите в бар.</div></div></div><div class="club-quest"><div class="club-quest-hdr" onclick="toggleClubQuest(this)"><span class="club-quest-num">#7</span><span class="club-quest-name">Чистый железный конь</span><svg class="club-quest-chev" width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div><div class="club-quest-body"><div class="club-quest-text">Помойте <b>мотоцикл</b> на любой автомойке штата.</div></div></div><div class="club-quest"><div class="club-quest-hdr" onclick="toggleClubQuest(this)"><span class="club-quest-num">#8</span><span class="club-quest-name">Совместная тренировка</span><svg class="club-quest-chev" width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div><div class="club-quest-body"><div class="club-quest-text">Победите члена мотоклуба в <b>дуэли</b> в тренировочном комплексе.</div></div></div><div class="club-quest"><div class="club-quest-hdr" onclick="toggleClubQuest(this)"><span class="club-quest-num">#9</span><span class="club-quest-name">Соревнование в меткости</span><svg class="club-quest-chev" width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div><div class="club-quest-body"><div class="club-quest-text">Победите участника мотоклуба в <b>игре в дартс</b>.</div></div></div><div class="club-picket"><div class="club-picket-title">Ежедневный мотопробег</div><div class="club-picket-text">Проводится раз в день при наличии <b>минимум 10 участников</b> на мотоциклах. Маршрут устанавливается организатором.</div><div class="club-picket-max">До 60 репутации за участие</div></div><div class="guide-sec-hdr"><span class="guide-sec-name">Достижения</span><div class="guide-sec-sep"></div></div><div class="club-ach"><div class="club-ach-name">«Ангел дорог»</div><div class="club-ach-desc">Достигните максимального ранга в мотоклубе.</div><span class="club-ach-reward">Неизвестно</span></div><div class="club-ach"><div class="club-ach-name">«Знаменосец»</div><div class="club-ach-desc">Установите флаг клуба в рамках задания «Покорение вершин».</div><span class="club-ach-reward">Неизвестно</span></div></div>
+  </div>
 
 </div>
 <div class="guides-hdr" id="usefulHdr" style="display:none">
@@ -2913,7 +3404,7 @@ function tFC(id){const c=document.getElementById(id);if(c){c.classList.toggle('o
         <span class="guide-sec-name">Гаражи квартир</span>
         <div class="guide-sec-sep"></div>
       </div>
-      <div class="garage-wrap"><table class="garage-tbl"><thead><tr><th>Класс</th><th>2гм</th><th>4гм</th><th>6гм</th><th>8гм</th><th>10гм</th><th>12гм</th><th>14гм</th><th>16гм</th><th>18гм</th><th>20гм</th><th>Итого</th></tr></thead><tbody><tr><td>Эконом</td><td class="g-price">$50K</td><td class="g-price">$100K</td><td class="g-none">—</td><td class="g-none">—</td><td class="g-none">—</td><td class="g-none">—</td><td class="g-none">—</td><td class="g-none">—</td><td class="g-none">—</td><td class="g-none">—</td><td class="g-total">$150K</td></tr><tr><td>Стандарт</td><td class="g-price">$50K</td><td class="g-price">$100K</td><td class="g-none">—</td><td class="g-none">—</td><td class="g-none">—</td><td class="g-none">—</td><td class="g-none">—</td><td class="g-none">—</td><td class="g-none">—</td><td class="g-none">—</td><td class="g-total">$150K</td></tr><tr><td>Комфорт</td><td class="g-price">$50K</td><td class="g-price">$100K</td><td class="g-none">—</td><td class="g-none">—</td><td class="g-none">—</td><td class="g-none">—</td><td class="g-none">—</td><td class="g-none">—</td><td class="g-none">—</td><td class="g-none">—</td><td class="g-total">$150K</td></tr><tr><td>Комфорт+</td><td class="g-price">$50K</td><td class="g-price">$100K</td><td class="g-price">$200K</td><td class="g-none">—</td><td class="g-none">—</td><td class="g-none">—</td><td class="g-none">—</td><td class="g-none">—</td><td class="g-none">—</td><td class="g-none">—</td><td class="g-total">$350K</td></tr><tr><td>Комфорт+2</td><td class="g-incl">✓</td><td class="g-price">$100K</td><td class="g-price">$200K</td><td class="g-price">$400K</td><td class="g-none">—</td><td class="g-none">—</td><td class="g-none">—</td><td class="g-none">—</td><td class="g-none">—</td><td class="g-none">—</td><td class="g-total">$700K</td></tr><tr><td>Бизнес</td><td class="g-incl">✓</td><td class="g-price">$100K</td><td class="g-price">$200K</td><td class="g-price">$400K</td><td class="g-none">—</td><td class="g-none">—</td><td class="g-none">—</td><td class="g-none">—</td><td class="g-none">—</td><td class="g-none">—</td><td class="g-total">$700K</td></tr><tr><td>Премиум</td><td class="g-incl">✓</td><td class="g-price">$100K</td><td class="g-price">$200K</td><td class="g-price">$400K</td><td class="g-none">—</td><td class="g-none">—</td><td class="g-none">—</td><td class="g-none">—</td><td class="g-none">—</td><td class="g-none">—</td><td class="g-total">$700K</td></tr><tr><td>Элитный</td><td class="g-incl">✓</td><td class="g-price">$100K</td><td class="g-price">$200K</td><td class="g-price">$400K</td><td class="g-none">—</td><td class="g-none">—</td><td class="g-none">—</td><td class="g-none">—</td><td class="g-none">—</td><td class="g-none">—</td><td class="g-total">$700K</td></tr><tr><td>Люкс</td><td class="g-incl">✓</td><td class="g-incl">✓</td><td class="g-price">$200K</td><td class="g-price">$400K</td><td class="g-price">$600K</td><td class="g-price">$800K</td><td class="g-price">$1.2KK</td><td class="g-price">$1.6KK</td><td class="g-price">$2KK</td><td class="g-price">$2.5KK</td><td class="g-total">$9.3KK</td></tr><tr><td>Платинум</td><td class="g-incl">✓</td><td class="g-incl">✓</td><td class="g-price">$200K</td><td class="g-price">$400K</td><td class="g-price">$600K</td><td class="g-price">$800K</td><td class="g-price">$1.2KK</td><td class="g-price">$1.6KK</td><td class="g-price">$2KK</td><td class="g-price">$2.5KK</td><td class="g-total">$9.3KK</td></tr></tbody></table></div>
+      <div class="garage-wrap"><table class="garage-tbl"><thead><tr><th>Тип</th><th>2</th><th>4</th><th>6</th><th>8</th><th>10</th><th>12</th><th>14</th><th>16</th><th>18</th><th>20</th><th>Итого</th></tr></thead><tbody><tr><td>Квартира 1 гм</td><td class="g-price">50K</td><td class="g-price">100K</td><td class="g-none">—</td><td class="g-none">—</td><td class="g-none">—</td><td class="g-none">—</td><td class="g-none">—</td><td class="g-none">—</td><td class="g-none">—</td><td class="g-none">—</td><td class="g-total">150K</td></tr><tr><td>Квартира 2 гм</td><td class="g-incl">+</td><td class="g-price">100K</td><td class="g-price">200K</td><td class="g-price">400K</td><td class="g-none">—</td><td class="g-none">—</td><td class="g-none">—</td><td class="g-none">—</td><td class="g-none">—</td><td class="g-none">—</td><td class="g-total">700K</td></tr><tr><td>Квартира 4 гм</td><td class="g-incl">+</td><td class="g-incl">+</td><td class="g-price">200K</td><td class="g-price">400K</td><td class="g-price">600K</td><td class="g-price">800K</td><td class="g-price">1.2KK</td><td class="g-price">1.6KK</td><td class="g-price">2KK</td><td class="g-price">2.5KK</td><td class="g-total">9.3KK</td></tr></tbody></table></div>
     </div>
     <div class="guide-sec" style="padding-top:12px">
       <div class="guide-sec-hdr">
@@ -2923,7 +3414,7 @@ function tFC(id){const c=document.getElementById(id);if(c){c.classList.toggle('o
       <div class="garage-note">
         <b>⚠ Важно:</b> расширять гараж можно только в домах от базовых 2гм. Дома с 1гм расширению не подлежат.
       </div>
-      <div class="garage-wrap"><table class="garage-tbl"><thead><tr><th>Класс</th><th>4гм</th><th>6гм</th><th>8гм</th><th>10гм</th><th>12гм</th><th>14гм</th><th>16гм</th><th>18гм</th><th>20гм</th><th>Итого</th></tr></thead><tbody><tr><td>Стандарт</td><td class="g-price">$100K</td><td class="g-price">$200K</td><td class="g-none">—</td><td class="g-none">—</td><td class="g-none">—</td><td class="g-none">—</td><td class="g-none">—</td><td class="g-none">—</td><td class="g-none">—</td><td class="g-total">$300K</td></tr><tr><td>Стандарт+</td><td class="g-incl">✓</td><td class="g-price">$400K</td><td class="g-price">$600K</td><td class="g-price">$800K</td><td class="g-none">—</td><td class="g-none">—</td><td class="g-none">—</td><td class="g-none">—</td><td class="g-none">—</td><td class="g-total">$1.8KK</td></tr><tr><td>Комфорт</td><td class="g-price">$100K</td><td class="g-price">$200K</td><td class="g-none">—</td><td class="g-none">—</td><td class="g-none">—</td><td class="g-none">—</td><td class="g-none">—</td><td class="g-none">—</td><td class="g-none">—</td><td class="g-total">$300K</td></tr><tr><td>Комфорт+</td><td class="g-incl">✓</td><td class="g-price">$400K</td><td class="g-price">$600K</td><td class="g-price">$800K</td><td class="g-none">—</td><td class="g-none">—</td><td class="g-none">—</td><td class="g-none">—</td><td class="g-none">—</td><td class="g-total">$1.8KK</td></tr><tr><td>Престиж</td><td class="g-incl">✓</td><td class="g-price">$400K</td><td class="g-price">$600K</td><td class="g-price">$800K</td><td class="g-none">—</td><td class="g-none">—</td><td class="g-none">—</td><td class="g-none">—</td><td class="g-none">—</td><td class="g-total">$1.8KK</td></tr><tr><td>Престиж+</td><td class="g-incl">✓</td><td class="g-incl">✓</td><td class="g-incl">✓</td><td class="g-price">$800K</td><td class="g-price">$1.2KK</td><td class="g-price">$1.6KK</td><td class="g-price">$2KK</td><td class="g-price">$2.5KK</td><td class="g-none">—</td><td class="g-total">$8.1KK</td></tr><tr><td>Элитное жильё</td><td class="g-incl">✓</td><td class="g-incl">✓</td><td class="g-incl">✓</td><td class="g-price">$800K</td><td class="g-price">$1.2KK</td><td class="g-price">$1.6KK</td><td class="g-price">$2KK</td><td class="g-price">$2.5KK</td><td class="g-none">—</td><td class="g-total">$8.1KK</td></tr></tbody></table></div>
+      <div class="garage-wrap"><table class="garage-tbl"><thead><tr><th>Тип</th><th>2</th><th>4</th><th>6</th><th>8</th><th>10</th><th>12</th><th>14</th><th>16</th><th>18</th><th>20</th><th>Итого</th></tr></thead><tbody><tr><td>Дом 2 гм</td><td class="g-incl">+</td><td class="g-price">100K</td><td class="g-price">200K</td><td class="g-none">—</td><td class="g-none">—</td><td class="g-none">—</td><td class="g-none">—</td><td class="g-none">—</td><td class="g-none">—</td><td class="g-none">—</td><td class="g-total">300K</td></tr><tr><td>Дом 6 гм</td><td class="g-incl">+</td><td class="g-incl">+</td><td class="g-incl">+</td><td class="g-price">400K</td><td class="g-price">600K</td><td class="g-price">800K</td><td class="g-none">—</td><td class="g-none">—</td><td class="g-none">—</td><td class="g-none">—</td><td class="g-total">1.8KK</td></tr><tr><td>Дом 10 гм</td><td class="g-incl">+</td><td class="g-incl">+</td><td class="g-incl">+</td><td class="g-incl">+</td><td class="g-incl">+</td><td class="g-price">800K</td><td class="g-price">1.2KK</td><td class="g-price">1.6KK</td><td class="g-price">2KK</td><td class="g-price">2.5KK</td><td class="g-total">8.1KK</td></tr></tbody></table></div>
     </div>
   </div>
 
